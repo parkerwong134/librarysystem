@@ -5,43 +5,43 @@ include('includes/config.php');
 if($_SESSION['login']!=''){
 $_SESSION['login']='';
 }
-if(isset($_POST['login']))
-{
-  //code for captach verification
-if ($_POST["vercode"] != $_SESSION["vercode"] OR $_SESSION["vercode"]=='')  {
-        echo "<script>alert('Incorrect verification code');</script>" ;
-    }
-        else {
-$email=$_POST['emailid'];
-$password=md5($_POST['password']);
-$sql ="SELECT EmailId,Password,StudentId,Status FROM tblstudents WHERE EmailId=:email and Password=:password";
-$query= $dbh -> prepare($sql);
-$query-> bindParam(':email', $email, PDO::PARAM_STR);
-$query-> bindParam(':password', $password, PDO::PARAM_STR);
-$query-> execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-
-if($query->rowCount() > 0)
-{
- foreach ($results as $result) {
- $_SESSION['stdid']=$result->StudentId;
-if($result->Status==1)
-{
-$_SESSION['login']=$_POST['emailid'];
-echo "<script type='text/javascript'> document.location ='dashboard.php'; </script>";
-} else {
-echo "<script>alert('Your Account Has been blocked .Please contact admin');</script>";
-
-}
-}
-
-}
-
-else{
-echo "<script>alert('Invalid Details');</script>";
-}
-}
-}
+// if(isset($_POST['login']))
+// {
+//   //code for captach verification
+// if ($_POST["vercode"] != $_SESSION["vercode"] OR $_SESSION["vercode"]=='')  {
+//         echo "<script>alert('Incorrect verification code');</script>" ;
+//     }
+//         else {
+// $email=$_POST['emailid'];
+// $password=md5($_POST['password']);
+// $sql ="SELECT EmailId,Password,StudentId,Status FROM tblstudents WHERE EmailId=:email and Password=:password";
+// $query= $dbh -> prepare($sql);
+// $query-> bindParam(':email', $email, PDO::PARAM_STR);
+// $query-> bindParam(':password', $password, PDO::PARAM_STR);
+// $query-> execute();
+// $results=$query->fetchAll(PDO::FETCH_OBJ);
+//
+// if($query->rowCount() > 0)
+// {
+//  foreach ($results as $result) {
+//  $_SESSION['stdid']=$result->StudentId;
+// if($result->Status==1)
+// {
+// $_SESSION['login']=$_POST['emailid'];
+// echo "<script type='text/javascript'> document.location ='dashboard.php'; </script>";
+// } else {
+// echo "<script>alert('Your Account Has been blocked .Please contact admin');</script>";
+//
+// }
+// }
+//
+// }
+//
+// else{
+// echo "<script>alert('Invalid Details');</script>";
+// }
+// }
+// }
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -79,9 +79,7 @@ echo "<script>alert('Invalid Details');</script>";
 <div class="row">
 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
 <div class="panel panel-info">
-<div class="panel-heading">
- LOGIN FORM
-</div>
+
 <div class="panel-body">
 <form role="form" method="post">
 
@@ -95,7 +93,7 @@ echo "<script>alert('Invalid Details');</script>";
 <p class="help-block"><a href="user-forgot-password.php">Forgot Password</a></p>
 </div>
 
- <button type="submit" name="login" class="btn btn-info">LOGIN </button> | <a href="signup.php">Not Register Yet</a>
+ <button type="submit" name="login" class="btn btn-info">LOGIN </button> | <a href="userreg.php">Not Registered</a>
 </form>
  </div>
 </div>
