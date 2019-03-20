@@ -28,7 +28,7 @@
 			}
 	</style>
 <!-- MENU SECTION END-->
-<?php include('navbar.php');?>
+
     <div class="content-wrapper">
          <div class="container">
         <div class="row pad-botm">
@@ -49,7 +49,7 @@
 
 <div class="form-group">
 <label>Username</label>
-<input class="form-control" type="email" name="email" id="emailid" autocomplete="off" required  />
+<input class="form-control" type="username" name="username" id="username" autocomplete="off" required  />
    <span id="user-availability-status" style="font-size:12px;"></span>
 </div>
 

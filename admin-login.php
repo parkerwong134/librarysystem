@@ -1,4 +1,33 @@
+<?php
+session_start();
+error_reporting(0);
+include('includes/config.php');
+if($_SESSION['alogin']!=''){
+$_SESSION['alogin']='';
+}
+if(isset($_POST['login']))
+{
+$username=$_POST['username'];
+$password=$_POST['password'];
+$sql ="SELECT UserName,Password FROM admin WHERE UserName=:username and Password=:password";
+$query= $dbh -> prepare($sql);
+$query-> bindParam(':username', $username, PDO::PARAM_STR);
+$query-> bindParam(':password', $password, PDO::PARAM_STR);
+$query-> execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+if($query->rowCount() > 0)
+{
+// $_SESSION['alogin']=$_POST['username'];
+echo "<script type='text/javascript'> document.location ='test.php'; </script>";
+
+} else{
+echo "<script>alert('Invalid Details');</script>";
+}
+}
+?>
+
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <html>
 	<head>
 		<meta charset="utf-8" />
@@ -9,6 +38,7 @@
 		<link href="assets/css/style.css" rel="stylesheet" />
 		<!-- GOOGLE FONT -->
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
 		<title>Admin Login</title>
 		<style>
 			.container {
@@ -30,20 +60,28 @@
 				<h1 class = "header-line">Admin/Librarian Login</h1>
 			</div>
 			</div>
-				<form style="text-align:center;" action="login_check.php" method="post">
+				<form style="text-align:center;" method="post">
 					<div class="form-group">
 					<label>Username:</label>
 					<input type="text" name="username" autocomplete="off"><br><br>
 					</div>
+					<div class="form-group">
 					<label>Password:</label>
-					<input type="text" name="password" autocomplete="off"><br><br>
-					<input type="submit" value="Login">
+					<input type="password" name="password" autocomplete="off"><br><br>
+					</div>
+					<button type="submit" name="login" class="btn btn-info">LOGIN </button>
 				</form><br>
 				<div class="container">
 				<a href="admin-register.php">New admin? Register here</a>
 				</div>
 			</div>
 
+			<script src="assets/js/jquery-1.10.2.js"></script>
+	    <!-- BOOTSTRAP SCRIPTS  -->
+	    <script src="assets/js/bootstrap.js"></script>
+	      <!-- CUSTOM SCRIPTS  -->
+	    <script src="assets/js/custom.js"></script>
+	</script>
 		</body>
 
 </html>

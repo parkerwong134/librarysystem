@@ -1,4 +1,33 @@
-<!DOCTYPE html>
+<?php
+session_start();
+error_reporting(0);
+include('includes/config.php');
+if($_SESSION['login']!=''){
+$_SESSION['login']='';
+}
+if(isset($_POST['login']))
+{
+
+$username=$_POST['username'];
+$password=$_POST['password'];
+$sql ="SELECT Password,UserName FROM tblusers WHERE UserName=:username and Password=:password";
+$query= $dbh -> prepare($sql);
+$query-> bindParam(':username', $username, PDO::PARAM_STR);
+$query-> bindParam(':password', $password, PDO::PARAM_STR);
+$query-> execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+
+if($query->rowCount() > 0)
+{
+echo "<script type='text/javascript'> document.location ='test.php'; </script>";
+}
+else{
+echo "<script>alert('Invalid Details');</script>";
+}
+
+}
+
+?>
 <html>
 	<head>
 		<meta charset="utf-8" />
@@ -32,14 +61,14 @@
 				<h1 class = "header-line">User Login</h1>
 			</div>
 		</div>
-				<form style="text-align:center;" action="login_check.php" method="post">
+				<form style="text-align:center;" method="post">
 					<div class="form-group">
 					<label>Username:</label>
 					<input type="text" name="username" autocomplete="off"><br><br>
 					</div>
 					<label>Password:</label>
-					<input type="text" name="password" autocomplete="off"><br><br>
-					<input type="submit" value="Login">
+					<input type="password" name="password" autocomplete="off"><br><br>
+					<button type="submit" name="login" class="btn btn-info">LOGIN</button>
 				</form><br>
 				<div class="container">
 				<a href="user-register.php">New user? Register here</a>
