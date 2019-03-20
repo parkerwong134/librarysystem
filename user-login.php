@@ -19,7 +19,8 @@ $results=$query->fetchAll(PDO::FETCH_OBJ);
 
 if($query->rowCount() > 0)
 {
-echo "<script type='text/javascript'> document.location ='test.php'; </script>";
+$_SESSION['login']=$_POST['username'];
+echo "<script type='text/javascript'> document.location ='user-view.php'; </script>";
 }
 else{
 echo "<script>alert('Invalid Details');</script>";
