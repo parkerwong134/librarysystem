@@ -1,3 +1,48 @@
+<?php
+session_start();
+error_reporting(0);
+include('includes/config.php');
+if($_SESSION['login']!=''){
+$_SESSION['login']='';
+}
+// if(isset($_POST['login']))
+// {
+//   //code for captach verification
+// if ($_POST["vercode"] != $_SESSION["vercode"] OR $_SESSION["vercode"]=='')  {
+//         echo "<script>alert('Incorrect verification code');</script>" ;
+//     }
+//         else {
+// $email=$_POST['emailid'];
+// $password=md5($_POST['password']);
+// $sql ="SELECT EmailId,Password,StudentId,Status FROM tblstudents WHERE EmailId=:email and Password=:password";
+// $query= $dbh -> prepare($sql);
+// $query-> bindParam(':email', $email, PDO::PARAM_STR);
+// $query-> bindParam(':password', $password, PDO::PARAM_STR);
+// $query-> execute();
+// $results=$query->fetchAll(PDO::FETCH_OBJ);
+//
+// if($query->rowCount() > 0)
+// {
+//  foreach ($results as $result) {
+//  $_SESSION['stdid']=$result->StudentId;
+// if($result->Status==1)
+// {
+// $_SESSION['login']=$_POST['emailid'];
+// echo "<script type='text/javascript'> document.location ='dashboard.php'; </script>";
+// } else {
+// echo "<script>alert('Your Account Has been blocked .Please contact admin');</script>";
+//
+// }
+// }
+//
+// }
+//
+// else{
+// echo "<script>alert('Invalid Details');</script>";
+// }
+// }
+// }
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -8,68 +53,65 @@
     <title>Online Library Management System | </title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <!-- <link href="assets/css/bootstrap.css" rel="stylesheet" /> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <!-- FONT AWESOME STYLE  -->
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <!-- CUSTOM STYLE  -->
     <link href="assets/css/style.css" rel="stylesheet" />
     <!-- GOOGLE FONT -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
 
 </head>
 <body>
+    <!------MENU SECTION START-->
+<?php include('includes/header.php');?>
+<!-- MENU SECTION END-->
+<div class="content-wrapper">
+<div class="container">
+<div class="row pad-botm">
+<div class="col-md-12">
+<h4 class="header-line">USER LOGIN</h4>
+</div>
+</div>
 
-<!--Navbar-->
-<nav class="navbar navbar-expand-lg style="background-color: #e3f2fd;"">
+<!--LOGIN PANEL START-->
+<div class="row">
+<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3" >
+<div class="panel panel-info">
 
-  <!-- Navbar brand -->
-  <a class="navbar-brand" href="#">Navbar</a>
+<div class="panel-body">
+<form role="form" method="post">
 
-  <!-- Collapse button -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<div class="form-group">
+<label>Email Address</label>
+<input class="form-control" type="text" name="emailid" required autocomplete="off" />
+</div>
+<div class="form-group">
+<label>Password</label>
+<input class="form-control" type="password" name="password" required autocomplete="off"  />
+<p class="help-block"><a href="user-forgot-password.php">Forgot Password</a></p>
+</div>
 
-  <!-- Collapsible content -->
-  <div class="collapse navbar-collapse" id="basicExampleNav">
+ <button type="submit" name="login" class="btn btn-info">LOGIN </button> | <a href="userreg.php">Not Registered</a>
+</form>
+ </div>
+</div>
+</div>
+</div>
+<!---LOGIN PABNEL END-->
 
-    <!-- Links -->
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home
-          <span class="sr-only">(current)</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
 
-      <!-- Dropdown -->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false">Dropdown</a>
-        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
+    </div>
+    </div>
+     <!-- CONTENT-WRAPPER SECTION END-->
+ <?php include('includes/footer.php');?>
+      <!-- FOOTER SECTION END-->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+    <!-- BOOTSTRAP SCRIPTS  -->
+    <script src="assets/js/bootstrap.js"></script>
+      <!-- CUSTOM SCRIPTS  -->
+    <script src="assets/js/custom.js"></script>
 
-    </ul>
-    <!-- Links -->
-
-    <form class="form-inline">
-      <div class="md-form my-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      </div>
-    </form>
-  </div>
-  <!-- Collapsible content -->
-
-</nav>
-<!--/.Navbar-->
 </body>
+</html>

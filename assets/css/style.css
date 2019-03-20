@@ -19,7 +19,6 @@
 body {
     font-family: 'Open Sans', sans-serif;
     line-height:28px;
-
 }
 .set-radius-zero {
     border-radius:0px;
@@ -40,11 +39,6 @@ body {
 .pad-botm {
     padding-bottom:30px;
 }
-
-
-/* =============================================================
-   NAVBAR & MENU STYLES
- ============================================================ */
 
 .right-div {
     float: right;
@@ -83,14 +77,6 @@ border-color: rgba(155, 153, 153, 0.23);
 .navbar-toggle {
 background-color: black;
 border: 1px solid black;
-}
-
-header {
-  padding: 60px;
-  text-align: center;
-  background: #1abc9c;
-  color: white;
-  font-size: 30px;
 }
 
     /* =============================================================
