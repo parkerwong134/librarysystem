@@ -1,3 +1,27 @@
+<?php
+session_start();
+include('includes/config.php');
+error_reporting(0);
+
+$fname=$_POST['fullname'];
+$username=$_POST['username'];
+$password=$_POST['password'];
+$sql="INSERT INTO users(FullName,UserName,Password) VALUES(:FullName,:UserName,:Password)";
+$query = $dbh->prepare($sql);
+$query->bindParam(':fullname',$fname,PDO::PARAM_STR);
+$query->bindParam(':username',$username,PDO::PARAM_STR);
+$query->bindParam(':password',$password,PDO::PARAM_STR);
+$query->execute();
+$lastInsertId = $dbh->lastInsertId();
+if($lastInsertId)
+{
+echo '<script>alert("User Registration Successful!")</script>';
+}
+else
+{
+echo "<script>alert('Something went wrong. Please try again');</script>";
+}
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -6,7 +30,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Online Library Management System | Student Signup</title>
+    <title>User Registration</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <!-- <link href="assets/css/bootstrap.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -50,6 +74,18 @@
 <div class="form-group">
 <label>Username</label>
 <input class="form-control" type="username" name="username" id="username" autocomplete="off" required  />
+   <span id="user-availability-status" style="font-size:12px;"></span>
+</div>
+
+<div class="form-group">
+<label>Email Address</label>
+<input class="form-control" type="email" name="email" id="emailid" autocomplete="off" required  />
+   <span id="user-availability-status" style="font-size:12px;"></span>
+</div>
+
+<div class="form-group">
+<label>Phone Number</label>
+<input class="form-control" type="number" name="number" autocomplete="off" required  />
    <span id="user-availability-status" style="font-size:12px;"></span>
 </div>
 
