@@ -2,11 +2,11 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
-// if(strlen($_SESSION['login'])==0)
-// {
-// header('location:index.php');
-// }
-// else{?>
+if(strlen($_SESSION['login'])==0)
+{
+header('location:index.php');
+}
+else{?>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -48,4 +48,4 @@ include('includes/config.php');
 
 </body>
 </html>
-<?php
+<?php } ?>

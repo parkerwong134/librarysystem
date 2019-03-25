@@ -4,6 +4,7 @@ START TRANSACTION;
 
 CREATE TABLE `admin` (
   `id` int(11) NOT NULL,
+  `EmployeeID` varchar(100) DEFAULT NULL,
   `FullName` varchar(100) DEFAULT NULL,
   `PhoneNumber` varchar(10) NOT NULL,
   `Email`    varchar(100) NOT NULL,
@@ -12,8 +13,8 @@ CREATE TABLE `admin` (
   `Password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `admin` (`id`, `FullName`, `PhoneNumber`, `Birthday`, `Email` , `UserName`, `Password`) VALUES
-(1, 'Parker Wong', '4031234567', '1998-08-23', 'admin@gmail.com', 'admin', 'password');
+INSERT INTO `admin` (`id`, `EmployeeID`, `FullName`, `PhoneNumber`, `Birthday`, `Email` , `UserName`, `Password`) VALUES
+(1, '1', 'Parker Wong', '4031234567', '1998-08-23', 'admin@gmail.com', 'admin', 'password');
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
@@ -27,7 +28,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `users` (`id`, `UserID`, `FullName`, `PhoneNumber`, `Email`, `Birthday`, `UserName`, `Password`) VALUES
-(1, '001', 'Zi Ang', '5871234567', 'ziang@gmail.com', '1998-05-13', 'ziang', 'yihang');
+(1, '1', 'Zi Ang', '5871234567', 'ziang@gmail.com', '1998-05-13', 'ziang', 'yihang');
 
 CREATE TABLE `books` (
   `id` int(11) NOT NULL,
@@ -42,7 +43,8 @@ INSERT INTO `books` (`id`, `BookName`, `AuthorId`, `ISBNNumber`, `BookPrice`) VA
 (3, 'sql for dummies like me', 4, 1111, 15);
 
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `EmployeeID` (`EmployeeID`);
 
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -52,7 +54,7 @@ ALTER TABLE `books`
   ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;

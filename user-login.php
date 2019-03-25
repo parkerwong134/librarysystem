@@ -10,7 +10,7 @@ if(isset($_POST['login']))
 
 $username=$_POST['username'];
 $password=$_POST['password'];
-$sql ="SELECT Password,UserName FROM users WHERE UserName=:username and Password=:password";
+$sql ="SELECT Password,UserName,UserID FROM users WHERE UserName=:username and Password=:password";
 $query= $dbh -> prepare($sql);
 $query-> bindParam(':username', $username, PDO::PARAM_STR);
 $query-> bindParam(':password', $password, PDO::PARAM_STR);
@@ -25,7 +25,6 @@ echo "<script type='text/javascript'> document.location ='user-view.php'; </scri
 else{
 echo "<script>alert('Invalid Details');</script>";
 }
-
 }
 
 ?>

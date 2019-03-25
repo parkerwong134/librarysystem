@@ -1,3 +1,47 @@
+<?php
+session_start();
+include('includes/config.php');
+error_reporting(0);
+
+if(isset($_POST['signup']))
+{
+  while(true){
+  $EmployeeID=rand(1,5000);
+  $result = "SELECT * FROM admin WHERE EmployeeID='$EmployeeID'";
+  if($result == 1)
+  {
+    continue;
+  }
+  else{
+    break;
+  }
+}
+
+$fname=$_POST['fullname'];
+$username=$_POST['username'];
+$email=$_POST['email'];
+$phonenum=$_POST['phonenum'];
+$password=$_POST['password'];
+$sql="INSERT INTO admin(EmployeeID,FullName,UserName,Email,PhoneNumber,Password) VALUES(:EmployeeID,:fname,:username,:email,:phonenum,:password)";
+$query = $dbh->prepare($sql);
+$query->bindParam(':EmployeeID',$EmployeeID,PDO::PARAM_STR);
+$query->bindParam(':fname',$fname,PDO::PARAM_STR);
+$query->bindParam(':username',$username,PDO::PARAM_STR);
+$query->bindParam(':email',$email,PDO::PARAM_STR);
+$query->bindParam(':phonenum',$phonenum,PDO::PARAM_STR);
+$query->bindParam(':password',$password,PDO::PARAM_STR);
+$query->execute();
+$lastInsertId = $dbh->lastInsertId();
+if($lastInsertId)
+{
+echo '<script>alert("Admin Registration Successful!")</script>';
+}
+else
+{
+echo "<script>alert('Something went wrong. Please try again');</script>";
+}
+}
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -6,7 +50,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Online Library Management System | Student Signup</title>
+    <title>Admin Register</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <!-- <link href="assets/css/bootstrap.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -27,7 +71,7 @@
 			text-align:center;
 			}
 	</style>
-<!-- MENU SECTION END-->
+<?php include('navbar.php');?>
     <div class="content-wrapper">
          <div class="container">
         <div class="row pad-botm">
@@ -48,8 +92,18 @@
 
 <div class="form-group">
 <label>Username</label>
-<input class="form-control" type="email" name="email" id="emailid" autocomplete="off" required  />
+<input class="form-control" type="username" name="username" id="username" autocomplete="off" required  />
+</div>
+
+<div class="form-group">
+<label>Email Address</label>
+<input class="form-control" type="email" name="email" id="Email" onBlur="checkAvailability()" autocomplete="off" required  />
    <span id="user-availability-status" style="font-size:12px;"></span>
+</div>
+
+<div class="form-group">
+<label>Phone Number</label>
+<input class="form-control" type="text" name="phonenum" autocomplete="off" required  />
 </div>
 
 <div class="form-group">

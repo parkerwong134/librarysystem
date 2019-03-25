@@ -3,13 +3,32 @@ session_start();
 include('includes/config.php');
 error_reporting(0);
 
+if(isset($_POST['signup']))
+{
+  while(true){
+  $UserID=rand(1,5000);
+  $result = "SELECT * FROM users WHERE UserID='$UserID'";
+  if($result == 1)
+  {
+    continue;
+  }
+  else{
+    break;
+  }
+}
+
 $fname=$_POST['fullname'];
 $username=$_POST['username'];
+$email=$_POST['email'];
+$phonenum=$_POST['phonenum'];
 $password=$_POST['password'];
-$sql="INSERT INTO users(FullName,UserName,Password) VALUES(:FullName,:UserName,:Password)";
+$sql="INSERT INTO users(UserID,FullName,UserName,Email,PhoneNumber,Password) VALUES(:UserID,:fname,:username,:email,:phonenum,:password)";
 $query = $dbh->prepare($sql);
-$query->bindParam(':fullname',$fname,PDO::PARAM_STR);
+$query->bindParam(':UserID',$UserID,PDO::PARAM_STR);
+$query->bindParam(':fname',$fname,PDO::PARAM_STR);
 $query->bindParam(':username',$username,PDO::PARAM_STR);
+$query->bindParam(':email',$email,PDO::PARAM_STR);
+$query->bindParam(':phonenum',$phonenum,PDO::PARAM_STR);
 $query->bindParam(':password',$password,PDO::PARAM_STR);
 $query->execute();
 $lastInsertId = $dbh->lastInsertId();
@@ -20,6 +39,7 @@ echo '<script>alert("User Registration Successful!")</script>';
 else
 {
 echo "<script>alert('Something went wrong. Please try again');</script>";
+}
 }
 ?>
 <!DOCTYPE html>
@@ -42,6 +62,7 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
     <!-- GOOGLE FONT -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
+
 </head>
 <body>
 	<style>
@@ -51,8 +72,8 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
 			text-align:center;
 			}
 	</style>
-<!-- MENU SECTION END-->
 
+<?php include('navbar.php');?>
     <div class="content-wrapper">
          <div class="container">
         <div class="row pad-botm">
@@ -74,19 +95,17 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
 <div class="form-group">
 <label>Username</label>
 <input class="form-control" type="username" name="username" id="username" autocomplete="off" required  />
-   <span id="user-availability-status" style="font-size:12px;"></span>
 </div>
 
 <div class="form-group">
 <label>Email Address</label>
-<input class="form-control" type="email" name="email" id="emailid" autocomplete="off" required  />
+<input class="form-control" type="email" name="email" id="Email" onBlur="checkAvailability()" autocomplete="off" required  />
    <span id="user-availability-status" style="font-size:12px;"></span>
 </div>
 
 <div class="form-group">
 <label>Phone Number</label>
-<input class="form-control" type="number" name="number" autocomplete="off" required  />
-   <span id="user-availability-status" style="font-size:12px;"></span>
+<input class="form-control" type="text" name="phonenum" autocomplete="off" required  />
 </div>
 
 <div class="form-group">
@@ -100,11 +119,6 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
 </div>
 
 <button type="submit" name="signup" class="btn btn-danger" id="submit">Register Now </button>
-
-                              </form>
-                        </div>
-                </div>
-</div>
         </div>
     </div>
 </div>
