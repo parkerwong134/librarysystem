@@ -16,13 +16,9 @@ if(strlen($_SESSION['login'])==0)
   <meta name="description" content="" />
   <meta name="author" content="" />
   <title>User View</title>
-  <!-- BOOTSTRAP CORE STYLE  -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <!-- FONT AWESOME STYLE  -->
   <link href="assets/css/font-awesome.css" rel="stylesheet" />
-  <!-- CUSTOM STYLE  -->
   <link href="assets/css/style.css" rel="stylesheet" />
-  <!-- GOOGLE FONT -->
   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
   </head>
@@ -34,6 +30,7 @@ if(strlen($_SESSION['login'])==0)
   			text-align:center;
   			}
   	</style>
+
 <?php include('user-navbar.php');?>
     <div class="content-wrapper">
          <div class="container">

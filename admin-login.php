@@ -70,9 +70,6 @@ echo "<script>alert('Invalid Details');</script>";
 					</div>
 					<button type="submit" name="login" class="btn btn-info">LOGIN </button>
 				</form><br>
-				<div class="container">
-				<a href="admin-register.php">New admin? Register here</a>
-				</div>
 			</div>
 
 			<script src="assets/js/jquery-1.10.2.js"></script>

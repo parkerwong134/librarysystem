@@ -7,6 +7,18 @@ if(strlen($_SESSION['alogin'])==0)
 header('location:index.php');
 }
 else{
+if(isset($_GET['del']))
+{
+$id=$_GET['del'];
+$sql = "delete from authors  WHERE id=:id";
+$query = $dbh->prepare($sql);
+$query -> bindParam(':id',$id, PDO::PARAM_STR);
+$query -> execute();
+$_SESSION['delmsg']="Author deleted";
+header('location:manage-authors.php');
+
+}
+
 
     ?>
 <!DOCTYPE html>
@@ -16,7 +28,7 @@ else{
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>List of Users</title>
+    <title>Manage Authors</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/js/dataTables/dataTables.bootstrap4.css" rel="stylesheet" />
@@ -32,32 +44,80 @@ else{
 <body>
 
 <?php include('admin-navbar.php');?>
+<!-- MENU SECTION END-->
     <div class="content-wrapper">
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">List of Users</h4>
+                <h4 class="header-line">Manage Authors</h4>
     </div>
+     <div class="row">
+    <?php if($_SESSION['error']!="")
+    {?>
+<div class="col-md-6">
+<div class="alert alert-danger" >
+ <strong>Error :</strong>
+ <?php echo htmlentities($_SESSION['error']);?>
+<?php echo htmlentities($_SESSION['error']="");?>
+</div>
+</div>
+<?php } ?>
+<?php if($_SESSION['msg']!="")
+{?>
+<div class="col-md-6">
+<div class="alert alert-success" >
+ <strong>Success :</strong>
+ <?php echo htmlentities($_SESSION['msg']);?>
+<?php echo htmlentities($_SESSION['msg']="");?>
+</div>
+</div>
+<?php } ?>
+<?php if($_SESSION['updatemsg']!="")
+{?>
+<div class="col-md-6">
+<div class="alert alert-success" >
+ <strong>Success :</strong>
+ <?php echo htmlentities($_SESSION['updatemsg']);?>
+<?php echo htmlentities($_SESSION['updatemsg']="");?>
+</div>
+</div>
+<?php } ?>
+
+
+   <?php if($_SESSION['delmsg']!="")
+    {?>
+<div class="col-md-6">
+<div class="alert alert-success" >
+ <strong>Success :</strong>
+ <?php echo htmlentities($_SESSION['delmsg']);?>
+<?php echo htmlentities($_SESSION['delmsg']="");?>
+</div>
+</div>
+<?php } ?>
+
+</div>
+
+
         </div>
             <div class="row">
                 <div class="col-md-12">
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
+
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>User ID</th>
-                                            <th>Full Name</th>
-                                            <th>Username</th>
-                                            <th>Email Address</th>
-                                            <th>Phone Number</th>
+                                            <th>Author</th>
+                                            <th>Birthday</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT * from users";
+<?php $sql = "SELECT * from  authors";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -68,23 +128,28 @@ foreach($results as $result)
 {               ?>
                                         <tr class="odd gradeX">
                                             <td class="center"><?php echo htmlentities($cnt);?></td>
-                                            <td class="center"><?php echo htmlentities($result->UserID);?></td>
-                                            <td class="center"><?php echo htmlentities($result->FullName);?></td>
-                                            <td class="center"><?php echo htmlentities($result->UserName);?></td>
-                                            <td class="center"><?php echo htmlentities($result->Email);?></td>
-                                            <td class="center"><?php echo htmlentities($result->PhoneNumber);?></td>
+                                            <td class="center"><?php echo htmlentities($result->AuthorName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->Birthday);?></td>
+                                            <td class="center"><?php echo htmlentities($result->Status);?></td>
+                                            <td class="center">
 
+                                            <a href="edit-author.php?athrid=<?php echo htmlentities($result->id);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button>
+                                          <a href="manage-authors.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
+                                            </td>
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>
                                     </tbody>
                                 </table>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
     </div>
     </div>
+
+
 </body>
 </html>
 <?php } ?>

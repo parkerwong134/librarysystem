@@ -36,10 +36,8 @@ echo "<script>alert('Invalid Details');</script>";
 		<meta name="author" content="" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 		<link href="assets/css/font-awesome.css" rel="stylesheet" />
-		<!-- CUSTOM STYLE  -->
 		<link href="assets/css/style.css" rel="stylesheet" />
-		<!-- GOOGLE FONT -->
-		<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /> -->
+
 		<title>User Login</title>
 		<style>
 			.container {
@@ -52,6 +50,7 @@ echo "<script>alert('Invalid Details');</script>";
 				text-align:center;
 				}
 		</style>
+
 	</head>
 		<body>
 			<?php include('navbar.php');?>
@@ -74,7 +73,5 @@ echo "<script>alert('Invalid Details');</script>";
 				<a href="user-register.php">New user? Register here</a>
 				</div>
 </div>
-
 		</body>
-
 </html>

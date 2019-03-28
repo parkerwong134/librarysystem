@@ -51,17 +51,10 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
     <meta name="author" content="" />
 
     <title>User Registration</title>
-    <!-- BOOTSTRAP CORE STYLE  -->
-    <!-- <link href="assets/css/bootstrap.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-    <!-- FONT AWESOME STYLE  -->
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
-    <!-- CUSTOM STYLE  -->
     <link href="assets/css/style.css" rel="stylesheet" />
-    <!-- GOOGLE FONT -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-
 
 </head>
 <body>
