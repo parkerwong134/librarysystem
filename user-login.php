@@ -19,8 +19,12 @@ $results=$query->fetchAll(PDO::FETCH_OBJ);
 
 if($query->rowCount() > 0)
 {
+	foreach($results as $result){
+	$_SESSION['userid']=$result->UserID;
+
 $_SESSION['login']=$_POST['username'];
 echo "<script type='text/javascript'> document.location ='user-view.php'; </script>";
+}
 }
 else{
 echo "<script>alert('Invalid Details');</script>";

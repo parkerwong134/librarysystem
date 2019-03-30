@@ -19,7 +19,7 @@
       <div class="navbar-collapse collapse" id="navbarNav">
           <ul class="navbar-nav">
               <li class="nav-item py-md-2"><a href="user-view.php" class="nav-link">My Books</a></li>
-              <li class="nav-item py-md-2"><a href="#" class="nav-link">My Profile</a></li>
+              <li class="nav-item py-md-2"><a href="user-profile.php" class="nav-link">My Profile</a></li>
               <li class="nav-item py-md-2"><a href="#" class="nav-link">Checkout Books</a></li>
           </ul>
 <?php if($_SESSION['login'])
