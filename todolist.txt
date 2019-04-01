@@ -1,0 +1,11 @@
+For the collection table, we need to insert a 'type' column which defines what the item is
+such as a book or DVD (refer to the ER model). The 'publisher' column also needs to be added
+so we will also need to add a publisher table.
+
+We need to implement how users borrow from the collection. So we first need to make a
+'rent/borrow' table that has the collection id and user id as a foreign key. Other
+columns might have to include borrow date and return date (dates will then have to
+be implemented into the other tables).
+
+We need an event creation page for the admin and an event register page for the user.
+For this we also need to create an event table.

@@ -41,7 +41,6 @@ else{
         </div>
             <div class="row">
                 <div class="col-md-12">
-                    <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -61,13 +60,13 @@ else{
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
+$num=1;
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
 {               ?>
                                         <tr class="odd gradeX">
-                                            <td class="center"><?php echo htmlentities($cnt);?></td>
+                                            <td class="center"><?php echo htmlentities($num);?></td>
                                             <td class="center"><?php echo htmlentities($result->UserID);?></td>
                                             <td class="center"><?php echo htmlentities($result->FullName);?></td>
                                             <td class="center"><?php echo htmlentities($result->UserName);?></td>
@@ -75,7 +74,7 @@ foreach($results as $result)
                                             <td class="center"><?php echo htmlentities($result->PhoneNumber);?></td>
 
                                         </tr>
- <?php $cnt=$cnt+1;}} ?>
+ <?php $num=$num+1;}} ?>
                                     </tbody>
                                 </table>
                             </div>

@@ -10,15 +10,16 @@ else{
 if(isset($_GET['del']))
 {
 $id=$_GET['del'];
-$sql = "delete from collection  WHERE id=:id";
+$sql = "delete from genre WHERE id=:id";
 $query = $dbh->prepare($sql);
 $query -> bindParam(':id',$id, PDO::PARAM_STR);
 $query -> execute();
-$_SESSION['delmsg']="Category deleted scuccessfully ";
-header('location:admin-view.php');
+$_SESSION['delmsg']="Genre deleted successfully!";
+header('location:manage-genres.php');
 
 }
-    ?>
+
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -26,7 +27,7 @@ header('location:admin-view.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Admin View</title>
+    <title>Manage Genres</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/js/dataTables/dataTables.bootstrap4.css" rel="stylesheet" />
@@ -40,14 +41,12 @@ header('location:admin-view.php');
 
 </head>
 <body>
-      <!------MENU SECTION START-->
 <?php include('admin-navbar.php');?>
-<!-- MENU SECTION END-->
     <div class="content-wrapper">
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Manage Collection</h4>
+                <h4 class="header-line">Manage Genres</h4>
     </div>
      <div class="row">
     <?php if($_SESSION['error']!="")
@@ -81,6 +80,7 @@ header('location:admin-view.php');
 </div>
 <?php } ?>
 
+
    <?php if($_SESSION['delmsg']!="")
     {?>
 <div class="col-md-6">
@@ -93,7 +93,6 @@ header('location:admin-view.php');
 <?php } ?>
 
 </div>
-
         </div>
             <div class="row">
                 <div class="col-md-12">
@@ -104,16 +103,12 @@ header('location:admin-view.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Item Name</th>
                                             <th>Genre</th>
-                                            <th>Author/Producer</th>
-                                            <th>ISBN</th>
-                                            <th>Price</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT collection.Title,genre.GenreName,authors.AuthorName,collection.ISBN,collection.Price,collection.id as id from collection join genre on genre.id=collection.GenreID join authors on authors.id=collection.AuthorID";
+<?php $sql = "SELECT * from genre";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -124,15 +119,11 @@ foreach($results as $result)
 {               ?>
                                         <tr class="odd gradeX">
                                             <td class="center"><?php echo htmlentities($num);?></td>
-                                            <td class="center"><?php echo htmlentities($result->Title);?></td>
                                             <td class="center"><?php echo htmlentities($result->GenreName);?></td>
-                                            <td class="center"><?php echo htmlentities($result->AuthorName);?></td>
-                                            <td class="center"><?php echo htmlentities($result->ISBN);?></td>
-                                            <td class="center"><?php echo htmlentities($result->Price);?></td>
                                             <td class="center">
 
-                                            <a href="#<?php echo htmlentities($result->id);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button>
-                                          <a href="#<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
+                                            <a href="edit-genre.php?genreid=<?php echo htmlentities($result->id);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button>
+                                          <a href="manage-genres.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
                                             </td>
                                         </tr>
  <?php $num=$num+1;}} ?>
@@ -142,13 +133,12 @@ foreach($results as $result)
 
                         </div>
                     </div>
-
+                    <a href="add-genre.php"><button type="button" name="addgenre" class="btn btn-success">Add Genre</button></a>
                 </div>
             </div>
 
     </div>
     </div>
-
 </body>
 </html>
 <?php } ?>
