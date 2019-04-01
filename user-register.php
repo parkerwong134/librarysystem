@@ -81,33 +81,33 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
                         <div class="panel-body">
                             <form name="signup" method="post" onSubmit="return valid();">
 <div class="form-group">
-<label>Full Name</label>
+<label>Full Name<span style="color:red">*</span></label>
 <input class="form-control" type="text" name="fullname" autocomplete="off" required />
 </div>
 
 <div class="form-group">
-<label>Username</label>
+<label>Username<span style="color:red">*</span></label>
 <input class="form-control" type="username" name="username" id="username" autocomplete="off" required  />
 </div>
 
 <div class="form-group">
-<label>Email Address</label>
+<label>Email Address<span style="color:red">*</span></label>
 <input class="form-control" type="email" name="email" id="Email" onBlur="checkAvailability()" autocomplete="off" required  />
    <span id="user-availability-status" style="font-size:12px;"></span>
 </div>
 
 <div class="form-group">
-<label>Phone Number</label>
+<label>Phone Number<span style="color:red">*</span></label>
 <input class="form-control" type="text" name="phonenum" autocomplete="off" required  />
 </div>
 
 <div class="form-group">
-<label>Enter Password</label>
+<label>Enter Password<span style="color:red">*</span></label>
 <input class="form-control" type="password" name="password" autocomplete="off" required  />
 </div>
 
 <div class="form-group">
-<label>Confirm Password </label>
+<label>Confirm Password<span style="color:red">*</span></label>
 <input class="form-control"  type="password" name="confirmpassword" autocomplete="off" required  />
 </div>
 
