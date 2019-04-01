@@ -35,8 +35,10 @@ echo "<script>alert('Invalid Details');</script>";
 		<meta name="author" content="" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 		<link href="assets/css/style.css" rel="stylesheet" />
-		<!-- GOOGLE FONT -->
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+		<script src="assets/js/jquery-1.10.2.js"></script>
+    <script src="assets/js/bootstrap.js"></script>
+    <script src="assets/js/custom.js"></script>
 
 		<title>Admin Login</title>
 		<style>
@@ -72,11 +74,6 @@ echo "<script>alert('Invalid Details');</script>";
 				</form><br>
 			</div>
 
-			<script src="assets/js/jquery-1.10.2.js"></script>
-	    <!-- BOOTSTRAP SCRIPTS  -->
-	    <script src="assets/js/bootstrap.js"></script>
-	      <!-- CUSTOM SCRIPTS  -->
-	    <script src="assets/js/custom.js"></script>
 	</script>
 		</body>
 

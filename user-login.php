@@ -41,6 +41,9 @@ echo "<script>alert('Invalid Details');</script>";
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 		<link href="assets/css/font-awesome.css" rel="stylesheet" />
 		<link href="assets/css/style.css" rel="stylesheet" />
+		<script src="assets/js/jquery-1.10.2.js"></script>
+    <script src="assets/js/bootstrap.js"></script>
+    <script src="assets/js/custom.js"></script>
 
 		<title>User Login</title>
 		<style>

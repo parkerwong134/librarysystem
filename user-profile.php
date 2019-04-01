@@ -65,7 +65,7 @@ echo '<script>alert("Your profile has been updated!")</script>';
                             <form name="signup" method="post">
 <?php
 $uid=$_SESSION['userid'];
-$sql="SELECT * from users";
+$sql="SELECT UserID,FullName,PhoneNumber,Email from users where UserID=:uid";
 $query = $dbh -> prepare($sql);
 $query-> bindParam(':uid', $uid, PDO::PARAM_STR);
 $query->execute();
