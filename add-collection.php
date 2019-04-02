@@ -13,14 +13,16 @@ if(isset($_POST['add']))
 $title=$_POST['title'];
 $genre=$_POST['genre'];
 $author=$_POST['author'];
+$type=$_POST['type'];
 $isbn=$_POST['isbn'];
 $price=$_POST['price'];
 
-$sql="INSERT INTO collection(title,GenreID,AuthorID,ISBN,Price) VALUES(:title,:genre,:author,:isbn,:price)";
+$sql="INSERT INTO collection(title,GenreID,AuthorID,ISBN,Price,itemType) VALUES(:title,:genre,:author,:isbn,:price,:type)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':title',$title,PDO::PARAM_STR);
 $query->bindParam(':genre',$genre,PDO::PARAM_STR);
 $query->bindParam(':author',$author,PDO::PARAM_STR);
+$query->bindParam(':type',$type,PDO::PARAM_STR);
 $query->bindParam(':isbn',$isbn,PDO::PARAM_STR);
 $query->bindParam(':price',$price,PDO::PARAM_STR);
 $query->execute();
@@ -116,6 +118,11 @@ foreach($results as $result)
 <option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->AuthorName);?></option>
  <?php }} ?>
 </select>
+</div>
+
+<div class="form-group">
+<label>Item Type<span style="color:red;">*</span></label>
+<input class="form-control" type="text" name="type" autocomplete="off"  required />
 </div>
 
 <div class="form-group">

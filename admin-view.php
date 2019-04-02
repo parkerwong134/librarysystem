@@ -107,13 +107,14 @@ header('location:admin-view.php');
                                             <th>Item Name</th>
                                             <th>Genre</th>
                                             <th>Author/Producer</th>
+                                            <th>Type</th>
                                             <th>ISBN</th>
                                             <th>Price</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT collection.Title,genre.GenreName,authors.AuthorName,collection.ISBN,collection.Price,collection.id as id from collection join genre on genre.id=collection.GenreID join authors on authors.id=collection.AuthorID";
+<?php $sql = "SELECT collection.Title,genre.GenreName,authors.AuthorName,collection.itemType,collection.ISBN,collection.Price,collection.id as id from collection join genre on genre.id=collection.GenreID join authors on authors.id=collection.AuthorID";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -127,6 +128,7 @@ foreach($results as $result)
                                             <td class="center"><?php echo htmlentities($result->Title);?></td>
                                             <td class="center"><?php echo htmlentities($result->GenreName);?></td>
                                             <td class="center"><?php echo htmlentities($result->AuthorName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->itemType);?></td>
                                             <td class="center"><?php echo htmlentities($result->ISBN);?></td>
                                             <td class="center"><?php echo htmlentities($result->Price);?></td>
                                             <td class="center">
