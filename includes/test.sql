@@ -80,6 +80,31 @@ INSERT INTO `genre` (`id`, `GenreName`) VALUES
 (3, 'Science'),
 (4, 'Fiction');
 
+CREATE TABLE `library` (
+  `address` varchar(255) NOT NULL,
+  `lName` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `library` (`address`, `lName`) VALUES
+('Sommerset', 'Sommerset Public Library');
+
+CREATE TABLE `event` (
+  `eLocation` varchar(255) NOT NULL,
+  `eDate` DATE NOT NULL,
+  `eName` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `event` (`eLocation`, `eDate`, `eName`) VALUES
+('Sommerset', '2019-02-10', 'Reading Event');
+
+ALTER TABLE `library`
+  ADD PRIMARY KEY (`address`),
+  ADD UNIQUE (`address`);
+
+ALTER TABLE `event`
+  ADD FOREIGN KEY (`eLocation`) REFERENCES `library`(`address`),
+  ADD CONSTRAINT PK_event PRIMARY KEY (`eLocation`, `eDate`, `eName`);
+
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `EmployeeID` (`EmployeeID`);
