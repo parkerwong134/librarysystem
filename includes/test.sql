@@ -39,7 +39,18 @@ CREATE TABLE `authors` (
 
 INSERT INTO `authors` (`id`, `AuthorName`, `Birthday`, `Status`) VALUES
 (1, 'E.K. Rowling', '2017-07-08', 'Active'),
-(2, 'Charlie Brown', '1950-08-01', 'Deceased');
+(2, 'Charlie Brown', '1950-08-01', 'Deceased'),
+(3, 'Producer Bob', '1977-04-01', 'Active');
+
+CREATE TABLE `publishers` (
+  `id` int(11) NOT NULL,
+  `publishName` varchar(159) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+INSERT INTO `publishers` (`ID`, `publishName`) VALUES  
+(1, 'Oxford University Press'),
+(2, 'Pearson Education Inc.');
 
 CREATE TABLE `collection` (
   `id` int(11) NOT NULL,
@@ -47,13 +58,16 @@ CREATE TABLE `collection` (
   `GenreID` int(11) DEFAULT NULL,
   `AuthorName` varchar(255) DEFAULT NULL,
   `AuthorID` int(11) DEFAULT NULL,
+  `PublishID` int(11) DEFAULT NULL,
   `ISBN` int(11) DEFAULT NULL,
-  `Price` int(11) DEFAULT NULL
+  `Price` int(11) DEFAULT NULL,
+  `itemType` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `collection` (`id`, `Title`, `GenreID`, `AuthorName`, `AuthorID`, `ISBN`, `Price`) VALUES
-(1, 'php for dummies like me', 1, 'parker', 1, 222333, 20),
-(3, 'sql for dummies like me', 1, 'wong', 2, 1111, 15);
+INSERT INTO `collection` (`id`, `Title`, `GenreID`, `AuthorName`, `AuthorID`, `PublishID`, `ISBN`, `Price`, `itemType`) VALUES
+(1, 'php for dummies like me', 1, 'parker', 1, 1, 222333, 20, 'Book'),
+(3, 'sql for dummies like me', 1, 'wong', 2, 1, 1111, 15, 'Book'),
+(5, 'The adventures of SQLman', 4, 'Bob', 3, 2, NULL, 50, 'DVD');
 
 CREATE TABLE `genre` (
   `id` int(11) NOT NULL,
@@ -102,6 +116,9 @@ ALTER TABLE `users`
 ALTER TABLE `authors`
   ADD PRIMARY KEY (`id`);
 
+ALTER TABLE `publishers`
+  ADD PRIMARY KEY (`id`);
+
 ALTER TABLE `collection`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `ISBN` (`ISBN`);
@@ -116,6 +133,9 @@ ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 ALTER TABLE `authors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+ALTER TABLE `publishers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 ALTER TABLE `collection`

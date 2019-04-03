@@ -22,6 +22,7 @@
               <li class="nav-item py-md-2"><a href="add-collection.php" class="nav-link">Add to Collection</a></li>
               <li class="nav-item py-md-2"><a href="list-users.php" class="nav-link">View Users</a></li>
               <li class="nav-item py-md-2"><a href="manage-authors.php" class="nav-link">Manage Authors</a></li>
+              <li class="nav-item py-md-2"><a href="manage-publishers.php" class="nav-link">Manage Publishers</a></li>
               <li class="nav-item py-md-2"><a href="manage-genres.php" class="nav-link">Manage Genres</a></li>
               <li class="nav-item py-md-2"><a href="admin-profile.php" class="nav-link">My Profile</a></li>
 
