@@ -39,8 +39,7 @@ CREATE TABLE `authors` (
 
 INSERT INTO `authors` (`id`, `AuthorName`, `Birthday`, `Status`) VALUES
 (1, 'E.K. Rowling', '2017-07-08', 'Active'),
-(2, 'Charlie Brown', '1950-08-01', 'Deceased'),
-(3, 'Producer Bob', '1977-04-01', 'Active');
+(2, 'Charlie Brown', '1950-08-01', 'Deceased');
 
 CREATE TABLE `collection` (
   `id` int(11) NOT NULL,
@@ -49,14 +48,12 @@ CREATE TABLE `collection` (
   `AuthorName` varchar(255) DEFAULT NULL,
   `AuthorID` int(11) DEFAULT NULL,
   `ISBN` int(11) DEFAULT NULL,
-  `Price` int(11) DEFAULT NULL,
-  `itemType` varchar(255) DEFAULT NULL
+  `Price` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `collection` (`id`, `Title`, `GenreID`, `AuthorName`, `AuthorID`, `ISBN`, `Price`, `itemType`) VALUES
-(1, 'php for dummies like me', 1, 'parker', 1, 222333, 20, 'Book'),
-(3, 'sql for dummies like me', 1, 'wong', 2, 1111, 15, 'Book'),
-(5, 'The adventures of SQLman', 4, 'Bob', 3, NULL, 50, 'DVD');
+INSERT INTO `collection` (`id`, `Title`, `GenreID`, `AuthorName`, `AuthorID`, `ISBN`, `Price`) VALUES
+(1, 'php for dummies like me', 1, 'parker', 1, 222333, 20),
+(3, 'sql for dummies like me', 1, 'wong', 2, 1111, 15);
 
 CREATE TABLE `genre` (
   `id` int(11) NOT NULL,
@@ -68,6 +65,31 @@ INSERT INTO `genre` (`id`, `GenreName`) VALUES
 (2, 'History'),
 (3, 'Science'),
 (4, 'Fiction');
+
+CREATE TABLE `library` (
+  `address` varchar(255) NOT NULL,
+  `lName` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `library` (`address`, `lName`) VALUES
+('Sommerset', 'Sommerset Public Library');
+
+CREATE TABLE `event` (
+  `eLocation` varchar(255) NOT NULL,
+  `eDate` DATE NOT NULL,
+  `eName` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `event` (`eLocation`, `eDate`, `eName`) VALUES
+('Sommerset', '2019-02-10', 'Reading Event');
+
+ALTER TABLE `library`
+  ADD PRIMARY KEY (`address`),
+  ADD UNIQUE (`address`);
+
+ALTER TABLE `event`
+  ADD FOREIGN KEY (`eLocation`) REFERENCES `library`(`address`),
+  ADD CONSTRAINT PK_event PRIMARY KEY (`eLocation`, `eDate`, `eName`);
 
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`),
