@@ -97,6 +97,24 @@ CREATE TABLE `event` (
 INSERT INTO `event` (`eLocation`, `eDate`, `eName`) VALUES
 ('Sommerset', '2019-02-10', 'Reading Event');
 
+CREATE TABLE `rent` (
+  `ISBN` int(11) NOT NULL,
+  `UserID` varchar(100) NOT NULL, 
+  `uFullName` varchar(120) NOT NULL,
+  `rentDate` DATE,
+  `returnDate` DATE DEFAULT NULL,
+  `overdue` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `rent` (`ISBN`, `UserID`, `uFullName`, `rentDate`, `returnDate`, `overdue`) VALUES
+(222333, '1', 'Parker Wong', '2019-03-09', '2019-04-02', 0);
+
+ALTER TABLE `rent`
+  ADD FOREIGN KEY (`ISBN`) REFERENCES `collection`(`ISBN`),
+  ADD FOREIGN KEY (`UserID`) REFERENCES `users`(`UserID`),
+  ADD FOREIGN KEY (`uFullName`) REFERENCES `users`(`FullName`),
+  ADD CONSTRAINT PK_rent PRIMARY KEY (`ISBN`, `UserID`, `uFullName`);
+
 ALTER TABLE `library`
   ADD PRIMARY KEY (`address`),
   ADD UNIQUE (`address`);
