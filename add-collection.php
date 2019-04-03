@@ -121,6 +121,26 @@ foreach($results as $result)
 </div>
 
 <div class="form-group">
+<label>Publisher<span style="color:red;">*</span></label>
+<select class="form-control" name="publisher" required="required">
+<option value="">Select Publisher</option>
+<?php
+
+$sql = "SELECT * from publishers";
+$query = $dbh -> prepare($sql);
+$query->execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+$cnt=1;
+if($query->rowCount() > 0)
+{
+foreach($results as $result)
+{               ?>
+<option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->publishName);?></option>
+ <?php }} ?>
+</select>
+</div>
+
+<div class="form-group">
 <label>Item Type<span style="color:red;">*</span></label>
 <input class="form-control" type="text" name="type" autocomplete="off"  required />
 </div>

@@ -10,14 +10,16 @@ else{
 if(isset($_GET['del']))
 {
 $id=$_GET['del'];
-$sql = "delete from collection  WHERE id=:id";
+$sql = "delete from publishers  WHERE id=:id";
 $query = $dbh->prepare($sql);
 $query -> bindParam(':id',$id, PDO::PARAM_STR);
 $query -> execute();
-$_SESSION['delmsg']="Category deleted scuccessfully ";
-header('location:admin-view.php');
+$_SESSION['delmsg']="Publisher deleted";
+header('location:manage-publishers.php');
 
 }
+
+
     ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -26,7 +28,7 @@ header('location:admin-view.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Admin View</title>
+    <title>Manage Authors</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/js/dataTables/dataTables.bootstrap4.css" rel="stylesheet" />
@@ -40,14 +42,14 @@ header('location:admin-view.php');
 
 </head>
 <body>
-      <!------MENU SECTION START-->
+
 <?php include('admin-navbar.php');?>
 <!-- MENU SECTION END-->
     <div class="content-wrapper">
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Manage Collection</h4>
+                <h4 class="header-line">Manage Publishers</h4>
     </div>
      <div class="row">
     <?php if($_SESSION['error']!="")
@@ -81,6 +83,7 @@ header('location:admin-view.php');
 </div>
 <?php } ?>
 
+
    <?php if($_SESSION['delmsg']!="")
     {?>
 <div class="col-md-6">
@@ -94,65 +97,56 @@ header('location:admin-view.php');
 
 </div>
 
+
         </div>
             <div class="row">
                 <div class="col-md-12">
+                    <!-- Advanced Tables -->
                     <div class="panel panel-default">
+
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Item Name</th>
-                                            <th>Genre</th>
-                                            <th>Author/Producer</th>
                                             <th>Publisher</th>
-                                            <th>Type</th>
-                                            <th>ISBN</th>
-                                            <th>Price</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT collection.Title,genre.GenreName,authors.AuthorName, publishers.publishName, collection.itemType,collection.ISBN,collection.Price,collection.id as id from collection join genre on genre.id=collection.GenreID join authors on authors.id=collection.AuthorID join publishers on publishers.id=collection.PublishID";
+<?php $sql = "SELECT * from  publishers";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
-$num=1;
+$cnt=1;
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
 {               ?>
                                         <tr class="odd gradeX">
-                                            <td class="center"><?php echo htmlentities($num);?></td>
-                                            <td class="center"><?php echo htmlentities($result->Title);?></td>
-                                            <td class="center"><?php echo htmlentities($result->GenreName);?></td>
-                                            <td class="center"><?php echo htmlentities($result->AuthorName);?></td>
+                                            <td class="center"><?php echo htmlentities($cnt);?></td>
                                             <td class="center"><?php echo htmlentities($result->publishName);?></td>
-                                            <td class="center"><?php echo htmlentities($result->itemType);?></td>
-                                            <td class="center"><?php echo htmlentities($result->ISBN);?></td>
-                                            <td class="center"><?php echo htmlentities($result->Price);?></td>
                                             <td class="center">
 
-                                            <a href="#<?php echo htmlentities($result->id);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button>
-                                          <a href="#<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
+                                            <a href="edit-publisher.php?publisherid=<?php echo htmlentities($result->id);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button>
+                                          <a href="manage-publishers.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
                                             </td>
                                         </tr>
- <?php $num=$num+1;}} ?>
+ <?php $cnt=$cnt+1;}} ?>
                                     </tbody>
                                 </table>
                             </div>
 
                         </div>
                     </div>
-
                 </div>
             </div>
+    </div>
+    </div>
 
-    </div>
-    </div>
 
 </body>
 </html>
 <?php } ?>
+
