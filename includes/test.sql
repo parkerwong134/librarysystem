@@ -110,10 +110,7 @@ INSERT INTO `rent` (`ISBN`, `UserID`, `uFullName`, `rentDate`, `returnDate`, `ov
 (222333, '1', 'Parker Wong', '2019-03-09', '2019-04-02', 0);
 
 ALTER TABLE `rent`
-  ADD FOREIGN KEY (`ISBN`) REFERENCES `collection`(`ISBN`),
-  ADD FOREIGN KEY (`UserID`) REFERENCES `users`(`UserID`),
-  ADD FOREIGN KEY (`uFullName`) REFERENCES `users`(`FullName`),
-  ADD CONSTRAINT PK_rent PRIMARY KEY (`ISBN`, `UserID`, `uFullName`);
+  ADD CONSTRAINT PK_rent PRIMARY KEY (`ISBN`, `UserID`);
 
 ALTER TABLE `library`
   ADD PRIMARY KEY (`address`),
