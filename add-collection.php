@@ -13,15 +13,17 @@ if(isset($_POST['add']))
 $title=$_POST['title'];
 $genre=$_POST['genre'];
 $author=$_POST['author'];
+$publish=$_POST['publish'];
 $type=$_POST['type'];
 $isbn=$_POST['isbn'];
 $price=$_POST['price'];
 
-$sql="INSERT INTO collection(title,GenreID,AuthorID,ISBN,Price,itemType) VALUES(:title,:genre,:author,:isbn,:price,:type)";
+$sql="INSERT INTO collection(title,GenreID,AuthorID,ISBN,Price,itemType,PublishID) VALUES(:title,:genre,:author,:isbn,:price,:type,:publish)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':title',$title,PDO::PARAM_STR);
 $query->bindParam(':genre',$genre,PDO::PARAM_STR);
 $query->bindParam(':author',$author,PDO::PARAM_STR);
+$query->bindParam(':publish',$publish,PDO::PARAM_STR);
 $query->bindParam(':type',$type,PDO::PARAM_STR);
 $query->bindParam(':isbn',$isbn,PDO::PARAM_STR);
 $query->bindParam(':price',$price,PDO::PARAM_STR);
@@ -122,7 +124,7 @@ foreach($results as $result)
 
 <div class="form-group">
 <label>Publisher<span style="color:red;">*</span></label>
-<select class="form-control" name="publisher" required="required">
+<select class="form-control" name="publish" required="required">
 <option value="">Select Publisher</option>
 <?php
 
