@@ -74,6 +74,11 @@ border-color: rgba(155, 153, 153, 0.23);
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
     border-color:transparent;
 }
+
+.nav-link:hover {
+	background-color:SlateBlue;
+}
+
 .navbar-toggle {
 background-color: black;
 border: 1px solid black;
