@@ -15,7 +15,7 @@ $query = $dbh->prepare($sql);
 $query -> bindParam(':id',$id, PDO::PARAM_STR);
 $query -> execute();
 $_SESSION['delmsg']="Category deleted scuccessfully ";
-header('location:admin-view.php');
+header('location:manage-events.php');
 
 }
     ?>
