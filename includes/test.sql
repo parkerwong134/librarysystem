@@ -80,23 +80,6 @@ INSERT INTO `genre` (`id`, `GenreName`) VALUES
 (3, 'Science'),
 (4, 'Fiction');
 
-CREATE TABLE `library` (
-  `address` varchar(255) NOT NULL,
-  `lName` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-INSERT INTO `library` (`address`, `lName`) VALUES
-('Sommerset', 'Sommerset Public Library');
-
-CREATE TABLE `event` (
-  `eLocation` varchar(255) NOT NULL,
-  `eDate` DATE NOT NULL,
-  `eName` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-INSERT INTO `event` (`eLocation`, `eDate`, `eName`) VALUES
-('Sommerset', '2019-02-10', 'Reading Event');
-
 CREATE TABLE `rent` (
   `ISBN` int(11) NOT NULL,
   `UserID` varchar(100) NOT NULL, 
@@ -109,16 +92,35 @@ CREATE TABLE `rent` (
 INSERT INTO `rent` (`ISBN`, `UserID`, `uFullName`, `rentDate`, `returnDate`, `overdue`) VALUES
 (222333, '1', 'Parker Wong', '2019-03-09', '2019-04-02', 0);
 
-ALTER TABLE `rent`
-  ADD CONSTRAINT PK_rent PRIMARY KEY (`ISBN`, `UserID`);
+CREATE TABLE `library` (
+  `address` varchar(255) NOT NULL,
+  `lName` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `library` (`address`, `lName`) VALUES
+('29-2934 Sommerset Place, SW, Calgary', 'Sommerset Public Library');
+
+CREATE TABLE `event` (
+  `eLocation` varchar(255) NOT NULL,
+  `startTime` DATETIME NOT NULL,
+  `endTime` DATETIME NOT NULL,
+  `eName` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `event` (`eLocation`, `startTime`, `endTime`, `eName`, `description`) VALUES
+('Sommerset Public Library', '2019-02-10 13:00:00', '2019-02-10 15:00:00', 'Reading Event', 'This is a event that let readers could communicate what they read.');
 
 ALTER TABLE `library`
-  ADD PRIMARY KEY (`address`),
+  ADD PRIMARY KEY (`lName`),
   ADD UNIQUE (`address`);
 
 ALTER TABLE `event`
-  ADD FOREIGN KEY (`eLocation`) REFERENCES `library`(`address`),
-  ADD CONSTRAINT PK_event PRIMARY KEY (`eLocation`, `eDate`, `eName`);
+  ADD FOREIGN KEY (`eLocation`) REFERENCES `library`(`lName`),
+  ADD CONSTRAINT PK_event PRIMARY KEY (`eLocation`, `startTime`, `endTime`, `eName`);
+
+ALTER TABLE `rent`
+  ADD CONSTRAINT PK_rent PRIMARY KEY (`ISBN`, `UserID`);
 
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`),
