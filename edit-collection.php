@@ -31,7 +31,7 @@ $query->bindParam(':collectionid',$collectionid,PDO::PARAM_STR);
 $query->execute();
 $_SESSION['msg']="Item updated successfully!";
 header('location:admin-view.php');
-}
+
 }
 ?>
 <!DOCTYPE html>
@@ -69,9 +69,9 @@ header('location:admin-view.php');
 <div class="row">
 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
 <div class="panel panel-info">
-
 <div class="panel-body">
 <form role="form" method="post">
+
 <?php
 $collectionid=intval($_GET['collectionid']);
 $sql = "SELECT collection.Title,genre.GenreName,Genre.id as genreid,
@@ -97,7 +97,6 @@ foreach($results as $result)
 <input class="form-control" type="text" name="title" value="<?php echo htmlentities($result->Title);?>" required />
 </div>
 
-<div class="form-group">
 <div class="form-group">
 <label>Genre<span style="color:red;">*</span></label>
 <select class="form-control" name="genre" required="required">

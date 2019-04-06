@@ -98,15 +98,15 @@ INSERT INTO `event` (`eLocation`, `eDate`, `eName`) VALUES
 
 CREATE TABLE `rent` (
   `ISBN` int(11) NOT NULL,
+  `CollectionID` int(11) NOT NULL,
   `UserID` varchar(100) NOT NULL,
-  `uFullName` varchar(120) NOT NULL,
   `rentDate` DATE,
   `returnDate` DATE DEFAULT NULL,
   `overdue` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `rent` (`ISBN`, `UserID`, `uFullName`, `rentDate`, `returnDate`, `overdue`) VALUES
-(222333, '1', 'Parker Wong', '2019-03-09', '2019-04-02', 0);
+INSERT INTO `rent` (`ISBN`, `CollectionID`, `UserID`, `rentDate`, `returnDate`, `overdue`) VALUES
+(222333, 1, '1', '2019-03-09', '2019-04-02', 0);
 
 ALTER TABLE `rent`
   ADD CONSTRAINT PK_rent PRIMARY KEY (`ISBN`, `UserID`);

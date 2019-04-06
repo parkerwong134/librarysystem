@@ -18,9 +18,10 @@
       </button>
       <div class="navbar-collapse collapse" id="navbarNav">
           <ul class="navbar-nav">
-              <li class="nav-item py-md-2"><a href="user-view.php" class="nav-link">My Books</a></li>
+              <li class="nav-item py-md-2"><a href="user-items.php" class="nav-link">My Items</a></li>
               <li class="nav-item py-md-2"><a href="user-profile.php" class="nav-link">My Profile</a></li>
-              <li class="nav-item py-md-2"><a href="#" class="nav-link">Checkout Books</a></li>
+              <li class="nav-item py-md-2"><a href="user-view.php" class="nav-link">View Collection</a></li>
+              <li class="nav-item py-md-2"><a href="register-event.php" class="nav-link">Event Registration</a></li>
           </ul>
 <?php if($_SESSION['login'])
   {
