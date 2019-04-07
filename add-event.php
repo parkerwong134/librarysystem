@@ -24,7 +24,7 @@ $query->bindParam(':endTime',$endTime);
 $query->bindParam(':name',$name);
 $query->bindParam(':description',$description);
 $query->execute();
-$_SESSION['msg']="Check the database if it inserts successfully!";
+$_SESSION['msg']="Event added successfully!";
 header('location:manage-events.php');
 }
 ?>
@@ -61,7 +61,7 @@ header('location:manage-events.php');
 <div class="row">
 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
 <div class="panel panel-info">
-	
+
 <div class="panel-body">
 <form role="form" method="post">
 <div class="form-group">

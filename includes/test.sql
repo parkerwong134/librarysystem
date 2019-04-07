@@ -48,7 +48,7 @@ CREATE TABLE `publishers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-INSERT INTO `publishers` (`ID`, `publishName`) VALUES  
+INSERT INTO `publishers` (`ID`, `publishName`) VALUES
 (1, 'Oxford University Press'),
 (2, 'Pearson Education Inc.');
 
@@ -56,7 +56,6 @@ CREATE TABLE `collection` (
   `id` int(11) NOT NULL,
   `Title` varchar(255) DEFAULT NULL,
   `GenreID` int(11) DEFAULT NULL,
-  `AuthorName` varchar(255) DEFAULT NULL,
   `AuthorID` int(11) DEFAULT NULL,
   `PublishID` int(11) DEFAULT NULL,
   `ISBN` int(11) DEFAULT NULL,
@@ -64,10 +63,10 @@ CREATE TABLE `collection` (
   `itemType` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `collection` (`id`, `Title`, `GenreID`, `AuthorName`, `AuthorID`, `PublishID`, `ISBN`, `Price`, `itemType`) VALUES
-(1, 'php for dummies like me', 1, 'parker', 1, 1, 222333, 20, 'Book'),
-(3, 'sql for dummies like me', 1, 'wong', 2, 1, 1111, 15, 'Book'),
-(5, 'The adventures of SQLman', 4, 'Bob', 3, 2, NULL, 50, 'DVD');
+INSERT INTO `collection` (`id`, `Title`, `GenreID`, `AuthorID`, `PublishID`, `ISBN`, `Price`, `itemType`) VALUES
+(1, 'php for dummies like me', 1, 1, 1, 222333, 20, 'Book'),
+(3, 'sql for dummies like me', 1, 2, 1, 1111, 15, 'Book'),
+(5, 'The adventures of SQLman', 4, 3, 2, 241, 50, 'DVD');
 
 CREATE TABLE `genre` (
   `id` int(11) NOT NULL,
@@ -82,15 +81,15 @@ INSERT INTO `genre` (`id`, `GenreName`) VALUES
 
 CREATE TABLE `rent` (
   `ISBN` int(11) NOT NULL,
-  `UserID` varchar(100) NOT NULL, 
-  `uFullName` varchar(120) NOT NULL,
+  `CollectionID` int(11) NOT NULL,
+  `UserID` varchar(100) NOT NULL,
   `rentDate` DATE,
   `returnDate` DATE DEFAULT NULL,
   `overdue` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `rent` (`ISBN`, `UserID`, `uFullName`, `rentDate`, `returnDate`, `overdue`) VALUES
-(222333, '1', 'Parker Wong', '2019-03-09', '2019-04-02', 0);
+INSERT INTO `rent` (`ISBN`, `CollectionID`, `UserID`, `rentDate`, `returnDate`, `overdue`) VALUES
+(222333, 1, '1', '2019-03-09', '2019-04-02', 0);
 
 CREATE TABLE `library` (
   `address` varchar(255) NOT NULL,

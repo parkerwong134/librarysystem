@@ -14,7 +14,7 @@ $sql = "delete from collection  WHERE id=:id";
 $query = $dbh->prepare($sql);
 $query -> bindParam(':id',$id, PDO::PARAM_STR);
 $query -> execute();
-$_SESSION['delmsg']="Category deleted scuccessfully ";
+$_SESSION['delmsg']="Item deleted successfully";
 header('location:admin-view.php');
 
 }
@@ -40,9 +40,7 @@ header('location:admin-view.php');
 
 </head>
 <body>
-      <!------MENU SECTION START-->
 <?php include('admin-navbar.php');?>
-<!-- MENU SECTION END-->
     <div class="content-wrapper">
          <div class="container">
         <div class="row pad-botm">
@@ -135,8 +133,8 @@ foreach($results as $result)
                                             <td class="center"><?php echo htmlentities($result->Price);?></td>
                                             <td class="center">
 
-                                            <a href="#<?php echo htmlentities($result->id);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button>
-                                          <a href="#<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
+                                            <a href="edit-collection.php?collectionid=<?php echo htmlentities($result->id);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button>
+                                          <a href="admin-view.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
                                             </td>
                                         </tr>
  <?php $num=$num+1;}} ?>

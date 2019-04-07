@@ -66,7 +66,7 @@ header('location:manage-genres.php');
 <div class="panel-body">
 <form role="form" method="post">
 <div class="form-group">
-<label>Category Name</label>
+<label>Genre Name</label>
 <input class="form-control" type="text" name="genre" autocomplete="off" required />
 </div>
 
