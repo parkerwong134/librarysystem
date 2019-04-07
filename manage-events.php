@@ -105,8 +105,10 @@ header('location:manage-events.php');
                                     <thead>
                                         <tr>
                                             <th>Location</th>
-                                            <th>Date</th>
-                                            <th>Name</th>
+                                            <th>Start Time</th>
+                                            <th>End Time</th>
+                                            <th>Event Name</th>
+                                            <th>Description</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -122,12 +124,14 @@ foreach($results as $result)
 {               ?>
                                         <tr class="odd gradeX">
                                             <td class="center"><?php echo htmlentities($result->eLocation);?></td>
-                                            <td class="center"><?php echo htmlentities($result->eDate);?></td>
+                                            <td class="center"><?php echo htmlentities($result->startTime);?></td>
+                                            <td class="center"><?php echo htmlentities($result->endTime);?></td>
                                             <td class="center"><?php echo htmlentities($result->eName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->description);?></td>
                                             <td class="center">
 
-                                            <a href="#<?php echo htmlentities($result->id);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button>
-                                          <a href="#<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
+                                            <a href="#<?php echo htmlentities($result->id);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i>Edit</button>
+                                          <a href="#<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i>Delete</button>
                                             </td>
                                         </tr>
  <?php $num=$num+1;}} ?>
