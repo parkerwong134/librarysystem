@@ -83,7 +83,7 @@ CREATE TABLE `rent` (
   `ISBN` int(11) NOT NULL,
   `CollectionID` int(11) NOT NULL,
   `UserID` varchar(100) NOT NULL,
-  `rentDate` DATE,
+  `rentDate` DATE DEFAULT NULL,
   `returnDate` DATE DEFAULT NULL,
   `overdue` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

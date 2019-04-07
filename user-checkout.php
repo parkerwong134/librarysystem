@@ -10,24 +10,19 @@ else{
 
 if(isset($_POST['checkout']))
 {
+$isbn=$_REQUEST['ISBN'];
 $userid=$_SESSION['userid'];
 $collectionid=intval($_GET['collectionid']);
-$sql="INSERT INTO rent(UserID,CollectionID) VALUES(:userid,:collectionid)";
+$sql="INSERT INTO rent(ISBN,CollectionID,UserID) VALUES(:isbn,:collectionid,:userid)";
 $query = $dbh->prepare($sql);
-$query->bindParam(':userid',$userid,PDO::PARAM_STR);
-$query->bindParam(':collectionid',$collectionid,PDO::PARAM_STR);
+$query->bindParam(':isbn',$isbn);
+$query->bindParam(':userid',$userid);
+$query->bindParam(':collectionid',$collectionid);
 $query->execute();
-$lastInsertId = $dbh->lastInsertId();
-if($lastInsertId)
-{
-$_SESSION['msg']="Item borrowed successfully";
+$_SESSION['msg']="ISBN: " . $isbn;
+/* $_SESSION['msg']="User ID: " . $userid;*/
+/* $_SESSION['msg']="Collection ID: " . $collectionid;*/
 header('location:user-items.php');
-}
-else
-{
-$_SESSION['error']="Something went wrong. Please try again";
-header('location:user-items.php');
-}
 
 }
 ?>
@@ -58,76 +53,58 @@ header('location:user-items.php');
         <div class="row pad-botm">
             <div class="col-md-12">
                 <h4 class="header-line">Checkout Item</h4>
-
-                            </div>
-
-</div>
-<div class="row">
-<div class="col-md-10 col-sm-6 col-xs-12 col-md-offset-1">
-<div class="panel panel-info">
-<div class="panel-body">
-<form role="form" method="post">
+            </div>
+        </div>
+        <form role="form" method="post">
+        <div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+								<thead>
+									<tr>
+										<th>#</th>
+                                        <th>Collection ID</th>
+                                        <th>Item Name</th>
+                                        <th>ISBN</th>
+                                    </tr>
+                                </thead>
+								<tbody>
 <?php
-$collectionid=intval($_GET['collectionid']);
-$sql = "SELECT collection.Title,genre.GenreName,Genre.id as genreid,
-authors.AuthorName,authors.id as authorid,
-publishers.publishName,publishers.id as publishid,
-collection.ISBN,collection.Price,collection.itemType,collection.id as collectionid
-from collection join genre on genre.id=collection.GenreID
-join authors on authors.id=collection.AuthorID
-join publishers on publishers.id=collection.PublishID
-where collection.id=:collectionid";
+$sql = "SELECT id, Title, ISBN
+from collection
+where id = '" . $_GET['collectionid'] . "'";
 $query = $dbh -> prepare($sql);
-$query->bindParam(':collectionid',$collectionid,PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
+$num=1;
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
 {               ?>
-
-<div class="form-group">
-<label>Item Name</label>
-<input class="form-control" type="text" name="title" value="<?php echo htmlentities($result->Title);?>" readonly/>
-</div>
-
-<div class="form-group">
-<label>Genre</label>
-<input class="form-control" type="text" name="genre" value="<?php echo htmlentities($result->GenreName);?>" readonly>
-</div>
-
-<div class="form-group">
-<label>Author/Producer</label>
-<input class="form-control" type="text" name="author" value="<?php echo htmlentities($result->AuthorName);?>" readonly>
-</div>
-
-
-<div class="form-group">
-<label>Publisher</label>
-<input class="form-control" type="text" name="publish" value="<?php echo htmlentities($result->publishName);?>" readonly>
-</div>
-
-<div class="form-group">
-<label>Item Type</label>
-<input class="form-control" type="text" name="type" value="<?php echo htmlentities($result->itemType);?>" readonly />
-</div>
-
- <?php }} ?>
-
-
-<button type="submit" name="checkout" id="submit" class="btn btn-info">Checkout</button>
-
-                                    </form>
-                            </div>
-                        </div>
-                            </div>
-
-        </div>
-
+									<tr class="odd gradeX">
+										<td class="center"><?php echo htmlentities($num);?></td>
+											<td class="center"><?php echo htmlentities($result->id);?></td>
+                                            <td class="center"><?php echo htmlentities($result->Title);?></td>
+                                            <td class="center"><?php echo htmlentities($result->ISBN);?></td>
+                                            <input type="hidden" name="ISBN" value=<?php echo htmlentities($result->ISBN);?>>
+                                        </td>
+                                    </tr>
+									
+                                    <?php $num=$num+1;}} ?>
+                                </tbody>
+                            </table>
+						</div>
+						
+<button type="submit" name="checkout" id="submit" class="btn btn-info" style="float:right;">Checkout</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		</form>
     </div>
-    </div>
-
+</div>
 </body>
 </html>
 <?php } ?>
