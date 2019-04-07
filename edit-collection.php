@@ -18,7 +18,7 @@ $type=$_POST['type'];
 $isbn=$_POST['isbn'];
 $price=$_POST['price'];
 $collectionid=intval($_GET['collectionid']);
-$sql="update collection set Title=:title,GenreID=:genre,AuthorID=:author,PublishID=:publish,ISBN=:isbn,Price=:price,type=itemType where id=:collectionid";
+$sql="update collection set Title=:title,GenreID=:genre,AuthorID=:author,PublishID=:publish,itemType=:type, ISBN=:isbn,Price=:price where id=:collectionid";
 $query = $dbh->prepare($sql);
 $query->bindParam(':title',$title,PDO::PARAM_STR);
 $query->bindParam(':genre',$genre,PDO::PARAM_STR);
@@ -29,9 +29,8 @@ $query->bindParam(':isbn',$isbn,PDO::PARAM_STR);
 $query->bindParam(':price',$price,PDO::PARAM_STR);
 $query->bindParam(':collectionid',$collectionid,PDO::PARAM_STR);
 $query->execute();
-$_SESSION['msg']="Item updated successfully";
+$_SESSION['msg']="Item updated successfully!";
 header('location:admin-view.php');
-
 
 }
 ?>
@@ -70,12 +69,19 @@ header('location:admin-view.php');
 <div class="row">
 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
 <div class="panel panel-info">
-
 <div class="panel-body">
 <form role="form" method="post">
+
 <?php
 $collectionid=intval($_GET['collectionid']);
-$sql = "SELECT collection.Title,genre.GenreName,Genre.id as genreid,authors.AuthorName,authors.id as authorid,collection.ISBN,collection.Price,collection.id as collectionid from  collection join genre on genre.id=collection.GenreID join authors on authors.id=collection.AuthorID where collection.id=:collectionid";
+$sql = "SELECT collection.Title,genre.GenreName,Genre.id as genreid,
+authors.AuthorName,authors.id as authorid,
+publishers.publishName,publishers.id as publishid,
+collection.ISBN,collection.Price,collection.itemType,collection.id as collectionid
+from collection join genre on genre.id=collection.GenreID
+join authors on authors.id=collection.AuthorID
+join publishers on publishers.id=collection.PublishID
+where collection.id=:collectionid";
 $query = $dbh -> prepare($sql);
 $query->bindParam(':collectionid',$collectionid,PDO::PARAM_STR);
 $query->execute();
@@ -92,23 +98,27 @@ foreach($results as $result)
 </div>
 
 <div class="form-group">
-<div class="form-group">
 <label>Genre<span style="color:red;">*</span></label>
 <select class="form-control" name="genre" required="required">
-<option value="">Select Genre</option>
+<option value="<?php echo htmlentities($result->genreid);?>"> <?php echo htmlentities($genrename=$result->GenreName);?></option>
 
 <?php
 $sql = "SELECT * from genre";
 $query = $dbh -> prepare($sql);
 $query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
+$resultgen=$query->fetchAll(PDO::FETCH_OBJ);
 if($query->rowCount() > 0)
 {
-foreach($results as $result)
-{               ?>
-<option value="<?php echo htmlentities($result->genreid);?>"><?php echo htmlentities($result->GenreName);?></option>
- <?php }} ?>
+foreach($resultgen as $row)
+{
+if($genrename==$row->GenreName)
+{
+  continue;
+}
+else {
+?>
+<option value="<?php echo htmlentities($row->id);?>"><?php echo htmlentities($row->GenreName);?></option>
+<?php }}} ?>
 </select>
 </div>
 
@@ -141,26 +151,32 @@ continue;
 <div class="form-group">
 <label>Publisher<span style="color:red;">*</span></label>
 <select class="form-control" name="publish" required="required">
-<option value="">Select Publisher</option>
+<option value="<?php echo htmlentities($result->publishid);?>"> <?php echo htmlentities($publishername=$result->publishName);?></option>
 <?php
 
 $sql = "SELECT * from publishers";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
+$query3 = $dbh -> prepare($sql);
+$query3->execute();
+$fetchpublish=$query3->fetchAll(PDO::FETCH_OBJ);
 $cnt=1;
-if($query->rowCount() > 0)
+if($query3->rowCount() > 0)
 {
-foreach($results as $result)
-{               ?>
-<option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->publishName);?></option>
- <?php }} ?>
+foreach($fetchpublish as $next)
+{
+if($publishername==$next->publishName)
+{
+  continue;
+}
+else
+{      ?>
+<option value="<?php echo htmlentities($next->id);?>"><?php echo htmlentities($next->publishName);?></option>
+<?php }}} ?>
 </select>
 </div>
 
 <div class="form-group">
 <label>Item Type<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="type" autocomplete="off"  required />
+<input class="form-control" type="text" name="type" value="<?php echo htmlentities($result->itemType);?>" required"required" />
 </div>
 
 <div class="form-group">
@@ -170,7 +186,7 @@ foreach($results as $result)
 
  <div class="form-group">
  <label>Price in USD<span style="color:red;">*</span></label>
- <input class="form-control" type="text" name="price" value="<?php echo htmlentities($result->BookPrice);?>"   required="required" />
+ <input class="form-control" type="text" name="price" value="<?php echo htmlentities($result->Price);?>"   required="required" />
  </div>
  <?php }} ?>
 <button type="submit" name="update" class="btn btn-info">Update </button>

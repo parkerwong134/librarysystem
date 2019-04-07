@@ -21,6 +21,7 @@
               <li class="nav-item py-md-2"><a href="admin-view.php" class="nav-link" style="color:white;">Manage Collection</a></li>
               <li class="nav-item py-md-2"><a href="add-collection.php" class="nav-link" style="color:white;">Add to Collection</a></li>
               <li class="nav-item py-md-2"><a href="list-users.php" class="nav-link" style="color:white;">View Users</a></li>
+              <li class="nav-item py-md-2"><a href="admin-rent.php" class="nav-link" style="color:white;">Manage Borrowed</a></li>
               <li class="nav-item py-md-2"><a href="manage-authors.php" class="nav-link" style="color:white;">Manage Authors</a></li>
               <li class="nav-item py-md-2"><a href="manage-publishers.php" class="nav-link" style="color:white;">Manage Publishers</a></li>
               <li class="nav-item py-md-2"><a href="manage-genres.php" class="nav-link" style="color:white;">Manage Genres</a></li>
