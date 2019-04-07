@@ -12,12 +12,16 @@ if(isset($_POST['checkout']))
 {
 $isbn=$_REQUEST['ISBN'];
 $userid=$_SESSION['userid'];
+$currentdate=date("Y-m-d");
+$duedate=date("Y-m-d", strtotime("+1 week"));
 $collectionid=intval($_GET['collectionid']);
-$sql="INSERT INTO rent(ISBN,CollectionID,UserID) VALUES(:isbn,:collectionid,:userid)";
+$sql="INSERT INTO rent(ISBN,CollectionID,UserID,rentDate,returnDate) VALUES(:isbn,:collectionid,:userid,:currentdate,:duedate)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':isbn',$isbn);
 $query->bindParam(':userid',$userid);
 $query->bindParam(':collectionid',$collectionid);
+$query->bindParam(':currentdate',$currentdate);
+$query->bindParam(':duedate',$duedate);
 $query->execute();
 $_SESSION['msg']="ISBN: " . $isbn;
 /* $_SESSION['msg']="User ID: " . $userid;*/
@@ -91,12 +95,12 @@ foreach($results as $result)
                                             <input type="hidden" name="ISBN" value=<?php echo htmlentities($result->ISBN);?>>
                                         </td>
                                     </tr>
-									
+
                                     <?php $num=$num+1;}} ?>
                                 </tbody>
                             </table>
 						</div>
-						
+
 <button type="submit" name="checkout" id="submit" class="btn btn-info" style="float:right;">Checkout</button>
 					</div>
 				</div>
