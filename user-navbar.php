@@ -21,7 +21,7 @@
               <li class="nav-item py-md-2"><a href="user-items.php" class="nav-link">My Items</a></li>
               <li class="nav-item py-md-2"><a href="user-profile.php" class="nav-link">My Profile</a></li>
               <li class="nav-item py-md-2"><a href="user-view.php" class="nav-link">View Collection</a></li>
-              <li class="nav-item py-md-2"><a href="register-event.php" class="nav-link">Event Registration</a></li>
+              <li class="nav-item py-md-2"><a href="event-list.php" class="nav-link">Event List</a></li>
           </ul>
 <?php if($_SESSION['login'])
   {
