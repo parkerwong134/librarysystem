@@ -113,7 +113,7 @@ header('location:manage-events.php');
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT * FROM event";
+<?php $sql = "SELECT * FROM event ORDER BY startTime DESC";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -130,7 +130,7 @@ foreach($results as $result)
                                             <td class="center"><?php echo htmlentities($result->description);?></td>
                                             <td class="center">
 
-                                            <a href="edit-event.php?eLocation=<?php echo htmlentities($result->eLocation);?>?eName=<?php echo htmlentities($result->eName);?>?startTime=<?php echo htmlentities($result->startTime);?>?endTime=<?php echo htmlentities($result->endTime);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i>Edit</button>
+                                            <a href="edit-event.php?eLocation=<?php echo htmlentities($result->eLocation);?>&eName=<?php echo htmlentities($result->eName);?>&startTime=<?php echo htmlentities($result->startTime);?>&endTime=<?php echo htmlentities($result->endTime);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i>Edit</button>
                                           <a href="#<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i>Delete</button>
                                             </td>
                                         </tr>

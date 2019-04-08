@@ -16,7 +16,12 @@ $endTime=$_REQUEST['endTime'];
 $name=$_REQUEST['name'];
 $description=$_REQUEST['description'];
 
-$sql="UPDATE events SET eLocation=:location, startTime=:startTime, endTime=:endTime, eName=:name, description=:description";
+$sql="UPDATE event 
+SET eLocation=:location, startTime=:startTime, endTime=:endTime, eName=:name, description=:description
+WHERE eName='" . urldecode($_GET['eName']) . "'
+AND eLocation='" . urldecode($_GET['eLocation']) . "'
+AND startTime='" . urldecode($_GET['startTime']) . "'
+AND endTime='" . urldecode($_GET['endTime']) . "'";
 $query = $dbh->prepare($sql);
 $query->bindParam(':location',$location);
 $query->bindParam(':startTime',$startTime);
@@ -68,10 +73,10 @@ header('location:manage-events.php');
 <div class="form-group">
 <label>Event Location<span style="color:red;">*</span></label>
 <select class="form-control" name="location" required="required">
-<option value="<?php echo htmlentities(urlencode($_GET['eLocation']));?>"><?php echo htmlentities(urlencode($_GET['eLocation']));?></option>
+<option value="<?php echo htmlentities(urldecode($_GET['eLocation']));?>"><?php echo htmlentities(urldecode($_GET['eLocation']));?></option>
 
 <?php
-$sql = "SELECT lName from library";
+$sql = "SELECT lName from library where lName <> '" . urldecode($_GET['eLocation']) . "'";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -87,29 +92,28 @@ foreach($results as $result)
 
 <div class="form-group">
 <label>Start Time<span style="color:red;">*</span> (The time input format is: YYYY-MM-DD HH:MM:SS)</label>
-<input class="form-control" type="datetime-local" name="startTime" value="<?php echo htmlentities(urlencode($_GET['startTime']));?>" autocomplete="off" required="required" />
+<input class="form-control" type="datetime-local" name="startTime" value="<?php echo htmlentities(urldecode($_GET['startTime']));?>" autocomplete="off" required="required" />
 </div>
 
 <div class="form-group">
 <label>End Time<span style="color:red;">*</span> (The time input format is: YYYY-MM-DD HH:MM:SS)</label>
-<input class="form-control" type="datetime-local" name="endTime" value="<?php echo htmlentities(urlencode($_GET['endTime']));?>" autocomplete="off" required="required" />
+<input class="form-control" type="datetime-local" name="endTime" value="<?php echo htmlentities(urldecode($_GET['endTime']));?>" autocomplete="off" required="required" />
 </div>
 
 <div class="form-group">
 <label>Event Name<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="name" value="<?php echo htmlentities(urlencode($_GET['eName']));?>" autocomplete="off" required="required" />
+<input class="form-control" type="text" name="name" value="<?php echo htmlentities(urldecode($_GET['eName']));?>" autocomplete="off" required="required" />
 </div>
 
+<div class="form-group">
+<label>Event Description<span style="color:red;">*</span></label>
+
 <?php
-$name=urlencode($_GET['eName']);
-$location=urlencode($_GET['eLocation']);
-$startTime=urlencode($_GET['startTime']);
-$endTime=urlencode($_GET['endTime']);
-$sql = "SELECT description FROM events 
-WHERE eName = :name
-AND eLocation = :location
-AND startTime = :startTime
-AND endTime = :endTime";
+$sql = "SELECT description FROM event
+WHERE eName='" . urldecode($_GET['eName']) . "'
+AND eLocation='" . urldecode($_GET['eLocation']) . "'
+AND startTime='" . urldecode($_GET['startTime']) . "'
+AND endTime='" . urldecode($_GET['endTime']) . "'";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -117,13 +121,11 @@ $cnt=1;
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
-{               ?>
-
-<div class="form-group">
-<label>Event Description<span style="color:red;">*</span></label>
-<textarea class="form-control" type="text" name="description" value="<?php echo htmlentities($result->description);?>" autocomplete="off" required="required" /></textarea>
-</div>
+{ ?>
+	<textarea class="form-control" type="text" name="description" autocomplete="off" required="required" /><?php echo htmlentities($result->description);?></textarea>
 <?php }} ?>
+</div>
+
 <button type="submit" name="update" class="btn btn-info">Update</button>
 </form>
 </div>
