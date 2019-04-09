@@ -12,9 +12,15 @@ if(isset($_POST['update']))
 {
 $authorid=intval($_GET['authorid']);
 $author=$_POST['author'];
-$sql="update  authors set AuthorName=:author where id=:authorid";
+$birthday=$_POST['birthday'];
+$status=$_POST['status'];
+$sql="update authors set AuthorName=:author where id=:authorid";
+$sql="update authors set Birthday=:birthday where id=:authorid";
+$sql="update authors set Status=:status where id=:authorid";
 $query = $dbh->prepare($sql);
 $query->bindParam(':author',$author,PDO::PARAM_STR);
+$query->bindParam(':birthday',$birthday,PDO::PARAM_STR);
+$query->bindParam(':status',$status,PDO::PARAM_STR);
 $query->bindParam(':authorid',$authorid,PDO::PARAM_STR);
 $query->execute();
 $_SESSION['updatemsg']="Author/Producer updated successfully";
@@ -82,10 +88,14 @@ foreach($results as $result)
 <input class="form-control" type="text" name="birthday" value="<?php echo htmlentities($result->Birthday);?>" required />
 </div>
 
-<div class="form-group">
-<label>Status</label>
-<input class="form-control" type="text" name="status" value="<?php echo htmlentities($result->Status);?>" required />
+<div class="radio">
+  <label>Status<br><input type="radio" name="status" value="<?php echo htmlentities($result->Status);?>" checked required >Active</label>
 </div>
+<div class="radio">
+  <label><input type="radio" name="status" value="<?php echo htmlentities($result->Status);?>" required >Deceased</label>
+</div>
+
+
 
 <?php }} ?>
 </div>

@@ -9,13 +9,13 @@ header('location:index.php');
 else{
 if(isset($_GET['del']))
 {
-$id=$_GET['del'];
-$sql = "delete from publishers  WHERE id=:id";
+$lName=$_GET['del'];
+$sql = "delete from library  WHERE lName=:lName";
 $query = $dbh->prepare($sql);
-$query -> bindParam(':id',$id, PDO::PARAM_STR);
+$query -> bindParam(':lName',$lName, PDO::PARAM_STR);
 $query -> execute();
-$_SESSION['delmsg']="Publisher deleted";
-header('location:manage-publishers.php');
+$_SESSION['delmsg']="Library deleted";
+header('location:manage-libraries.php');
 
 }
 
@@ -49,8 +49,8 @@ header('location:manage-publishers.php');
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Manage Publishers</h4>
-                <a href="add-publisher.php"><button type="button" name="addPublisher" class="btn btn-success" style="float:right;">Add Publisher</button></a>
+                <h4 class="header-line">Manage Libraries</h4>
+                <a href="add-library.php"><button type="button" name="addLibrary" class="btn btn-success" style="float:right;">Add Library</button></a>
     </div>
      <div class="row">
     <?php if($_SESSION['error']!="")
@@ -111,12 +111,13 @@ header('location:manage-publishers.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Publisher</th>
+                                            <th>Library Name</th>
+                                            <th>Address</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT * from  publishers";
+<?php $sql = "SELECT * from  library";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -127,11 +128,12 @@ foreach($results as $result)
 {               ?>
                                         <tr class="odd gradeX">
                                             <td class="center"><?php echo htmlentities($cnt);?></td>
-                                            <td class="center"><?php echo htmlentities($result->publishName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->lName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->address);?></td>
                                             <td class="center">
 
-                                            <a href="edit-publisher.php?publisherid=<?php echo htmlentities($result->id);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button>
-                                          <a href="manage-publishers.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
+                                            <a href="edit-library.php?lname=<?php echo htmlentities($result->lName);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button>
+                                          <a href="manage-libraries.php?del=<?php echo htmlentities($result->lName);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
                                             </td>
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>
@@ -150,4 +152,5 @@ foreach($results as $result)
 </body>
 </html>
 <?php } ?>
+
 

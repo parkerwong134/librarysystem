@@ -104,18 +104,29 @@ CREATE TABLE `event` (
   `startTime` DATETIME NOT NULL,
   `endTime` DATETIME NOT NULL,
   `eName` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  `UserID` varchar(100) DEFAULT NULL
+  `description` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `event` (`eLocation`, `startTime`, `endTime`, `eName`, `description`,`UserID`) VALUES
-('Sommerset Public Library', '2019-02-10 13:00:00', '2019-02-10 15:00:00', 'Reading Event', 'This is a event that let readers could communicate what they read.', NULL);
+INSERT INTO `event` (`eLocation`, `startTime`, `endTime`, `eName`, `description`) VALUES
+('Sommerset Public Library', '2019-02-10 13:00:00', '2019-02-10 15:00:00', 'Reading Event', 'This is a event that let readers could communicate what they read.');
+
+CREATE TABLE `register` (
+  `UserID` varchar(100) NOT NULL,
+  `eLocation` varchar(255) NOT NULL,
+  `startTime` DATETIME NOT NULL,
+  `endTime` DATETIME NOT NULL,
+  `eName` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE `library`
   ADD PRIMARY KEY (`lName`),
   ADD UNIQUE (`address`);
 
 ALTER TABLE `event`
+  ADD FOREIGN KEY (`eLocation`) REFERENCES `library`(`lName`),
+  ADD CONSTRAINT PK_event PRIMARY KEY (`eLocation`, `startTime`, `endTime`, `eName`);
+
+ALTER TABLE `register`
   ADD FOREIGN KEY (`eLocation`) REFERENCES `library`(`lName`),
   ADD CONSTRAINT PK_event PRIMARY KEY (`eLocation`, `startTime`, `endTime`, `eName`);
 
