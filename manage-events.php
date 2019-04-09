@@ -129,8 +129,8 @@ foreach($results as $result)
                                             <td class="center">
 
                                             <a href="edit-event.php?eLocation=<?php echo htmlentities($result->eLocation);?>&eName=<?php echo htmlentities($result->eName);?>&startTime=<?php echo htmlentities($result->startTime);?>&endTime=<?php echo htmlentities($result->endTime);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i>Edit</button>
-                                            <a href="event-users.php"><button type="button" name="viewEvent" class="btn btn-success" style="float:right;">View Attendees</button></a>
-                                          <a href="manage-event.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i>Delete</button>
+                                            <a href="event-users.php?eLocation=<?php echo htmlentities($result->eLocation);?>&eName=<?php echo htmlentities($result->eName);?>&startTime=<?php echo htmlentities($result->startTime);?>&endTime=<?php echo htmlentities($result->endTime);?>"><button class="btn btn-success"><i class="fa fa-edit "></i>View Attendees</button>
+                                            <a href="manage-event.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i>Delete</button>
                                             </td>
                                         </tr>
  <?php $num=$num+1;}} ?>

@@ -99,6 +99,9 @@ CREATE TABLE `library` (
 INSERT INTO `library` (`address`, `lName`) VALUES
 ('29-2934 Sommerset Place, SW, Calgary', 'Sommerset Public Library');
 
+INSERT INTO `library` (`address`, `lName`) VALUES
+('23 Varmoor Place, 32 Ave, NW, Calgary', 'Verisity Public Library');
+
 CREATE TABLE `event` (
   `eLocation` varchar(255) NOT NULL,
   `startTime` DATETIME NOT NULL,
@@ -127,8 +130,8 @@ ALTER TABLE `event`
   ADD CONSTRAINT PK_event PRIMARY KEY (`eLocation`, `startTime`, `endTime`, `eName`);
 
 ALTER TABLE `register`
-  ADD FOREIGN KEY (`eLocation`) REFERENCES `library`(`lName`),
-  ADD CONSTRAINT PK_event PRIMARY KEY (`eLocation`, `startTime`, `endTime`, `eName`);
+  ADD CONSTRAINT FK_register FOREIGN KEY (`eLocation`, `startTime`, `endTime`, `eName`) REFERENCES `event`(`eLocation`, `startTime`, `endTime`, `eName`),
+  ADD CONSTRAINT PK_register PRIMARY KEY (`UserID`, `eLocation`, `startTime`, `endTime`, `eName`);
 
 ALTER TABLE `rent`
   ADD CONSTRAINT PK_rent PRIMARY KEY (`ISBN`, `UserID`);

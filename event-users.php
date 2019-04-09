@@ -16,7 +16,7 @@ else{
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>View Borrowed Items</title>
+    <title>View Event Attendees</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/js/dataTables/dataTables.bootstrap4.css" rel="stylesheet" />
@@ -35,7 +35,7 @@ else{
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Manage Borrowed Items</h4>
+                <h4 class="header-line">View Event Attendees</h4>
     </div>
      <div class="row">
     <?php if($_SESSION['error']!="")
@@ -76,6 +76,55 @@ else{
 
 
         </div>
+        <h5 class="header-line">Event</h5>
+        <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Location</th>
+                                            <th>Start Time</th>
+                                            <th>End Time</th>
+                                            <th>Event Name</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+<?php $sql = "SELECT * FROM event
+WHERE eName='" . urldecode($_GET['eName']) . "'
+AND eLocation='" . urldecode($_GET['eLocation']) . "'
+AND startTime='" . urldecode($_GET['startTime']) . "'
+AND endTime='" . urldecode($_GET['endTime']) . "'";
+$query = $dbh -> prepare($sql);
+$query->execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+if($query->rowCount() > 0)
+{
+foreach($results as $result)
+{               ?>
+                                        <tr class="odd gradeX">
+                                            <td class="center"><?php echo htmlentities($result->eLocation);?></td>
+                                            <td class="center"><?php echo htmlentities($result->startTime);?></td>
+                                            <td class="center"><?php echo htmlentities($result->endTime);?></td>
+                                            <td class="center"><?php echo htmlentities($result->eName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->description);?></td>
+
+                                        </tr>
+ <?php $cnt=$cnt+1;}} ?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <h5 class="header-line">Attendees</h5>
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
@@ -85,17 +134,18 @@ else{
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>User ID</th>
                                             <th>User Full Name</th>
-                                            <th>Title</th>
-                                            <th>ISBN </th>
-                                            <th>Borrow Date</th>
-                                            <th>Return Date</th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT event.userID as usersid
-from event join users on users.UserID=event.UserID";
+<?php $sql = "SELECT register.UserID, users.FullName
+FROM register 
+INNER JOIN users ON users.UserID=register.UserID
+WHERE register.eName='" . urldecode($_GET['eName']) . "'
+AND register.eLocation='" . urldecode($_GET['eLocation']) . "'
+AND register.startTime='" . urldecode($_GET['startTime']) . "'
+AND register.endTime='" . urldecode($_GET['endTime']) . "'";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -106,12 +156,8 @@ foreach($results as $result)
 {               ?>
                                         <tr class="odd gradeX">
                                             <td class="center"><?php echo htmlentities($cnt);?></td>
+                                            <td class="center"><?php echo htmlentities($result->UserID);?></td>
                                             <td class="center"><?php echo htmlentities($result->FullName);?></td>
-                                            <td class="center"><?php echo htmlentities($result->Title);?></td>
-                                            <td class="center"><?php echo htmlentities($result->ISBN);?></td>
-                                            <td class="center"><?php echo htmlentities($result->rentDate);?></td>
-                                            <td class="center"><?php echo htmlentities($result->returnDate);?></td>
-
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>
                                     </tbody>

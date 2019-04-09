@@ -10,20 +10,20 @@ else{
 
 if(isset($_POST['register']))
 {
-$location=$_REQUEST['location'];
-$startTime=$_REQUEST['startTime'];
-$endTime=$_REQUEST['endTime'];
-$name=$_REQUEST['name'];
 $userid=$_SESSION['userid'];
-$sql="INSERT INTO event(eLocation,startTime,endTime,eName,UserID) VALUES(:location,:startTime,:endTime,:name,:userid)";
+$location=urldecode($_GET['eLocation']);
+$startTime=urldecode($_GET['startTime']);
+$endTime=urldecode($_GET['endTime']);
+$name=urldecode($_GET['eName']);
+$sql="INSERT INTO register(UserID,eLocation,startTime,endTime,eName) VALUES(:userid,:location,:startTime,:endTime,:name)";
 $query = $dbh->prepare($sql);
+$query->bindParam(':userid',$userid);
 $query->bindParam(':location',$location);
 $query->bindParam(':startTime',$startTime);
 $query->bindParam(':endTime',$endTime);
 $query->bindParam(':name',$name);
-$query->bindParam(':userid',$userid);
 $query->execute();
-$_SESSION['msg']="Event Registration Successful!";
+$_SESSION['msg']="Event Name: " . urldecode($_GET['eName']);
 header('location:event-list.php');
 
 }
@@ -66,7 +66,6 @@ header('location:event-list.php');
 							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 								<thead>
 									<tr>
-										<th>#</th>
                     <th>Location</th>
                     <th>Start Time</th>
                     <th>End Time</th>
@@ -75,28 +74,31 @@ header('location:event-list.php');
                                     </tr>
                                 </thead>
 								<tbody>
+
+					<tr class="odd gradeX">
+                    <td class="center"><?php echo htmlentities(urldecode($_GET['eLocation']));?></td>
+                    <td class="center"><?php echo htmlentities(urldecode($_GET['startTime']));?></td>
+                    <td class="center"><?php echo htmlentities(urldecode($_GET['endTime']));?></td>
+                    <td class="center"><?php echo htmlentities(urldecode($_GET['eName']));?></td>
+
 <?php
-$sql = "SELECT * FROM event ORDER BY startTime DESC";
+$sql = "SELECT description FROM event
+WHERE eName='" . urldecode($_GET['eName']) . "'
+AND eLocation='" . urldecode($_GET['eLocation']) . "'
+AND startTime='" . urldecode($_GET['startTime']) . "'
+AND endTime='" . urldecode($_GET['endTime']) . "'";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
-$num=1;
+$cnt=1;
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
-{               ?>
-									<tr class="odd gradeX">
-										<td class="center"><?php echo htmlentities($num);?></td>
-                    <td class="center"><?php echo htmlentities($result->eLocation);?></td>
-                    <td class="center"><?php echo htmlentities($result->startTime);?></td>
-                    <td class="center"><?php echo htmlentities($result->endTime);?></td>
-                    <td class="center"><?php echo htmlentities($result->eName);?></td>
+{ ?>
                     <td class="center"><?php echo htmlentities($result->description);?></td>
-                    <input type="hidden" name="userid" value=<?php echo htmlentities($result->UserID);?>>
+<?php }} ?>
 
                                     </tr>
-
-                                    <?php $num=$num+1;}} ?>
                                 </tbody>
                             </table>
 						</div>
