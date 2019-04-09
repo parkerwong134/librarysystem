@@ -50,6 +50,7 @@ header('location:manage-authors.php');
         <div class="row pad-botm">
             <div class="col-md-12">
                 <h4 class="header-line">Manage Authors</h4>
+                <a href="add-author.php"><button type="button" name="addAuthor" class="btn btn-success" style="float:right;">Add Author</button></a>
     </div>
      <div class="row">
     <?php if($_SESSION['error']!="")

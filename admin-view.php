@@ -46,6 +46,7 @@ header('location:admin-view.php');
         <div class="row pad-botm">
             <div class="col-md-12">
                 <h4 class="header-line">Manage Collection</h4>
+                <a href="add-collection.php"><button type="button" name="addCollect" class="btn btn-success" style="float:right;">Add To Collection</button></a>
     </div>
      <div class="row">
     <?php if($_SESSION['error']!="")

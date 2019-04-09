@@ -19,13 +19,13 @@
       <div class="navbar-collapse collapse" id="navbarNav">
           <ul class="navbar-nav">
               <li class="nav-item py-md-2"><a href="admin-view.php" class="nav-link" style="color:white;">Manage Collection</a></li>
-              <li class="nav-item py-md-2"><a href="add-collection.php" class="nav-link" style="color:white;">Add to Collection</a></li>
               <li class="nav-item py-md-2"><a href="list-users.php" class="nav-link" style="color:white;">View Users</a></li>
               <li class="nav-item py-md-2"><a href="admin-rent.php" class="nav-link" style="color:white;">Manage Borrowed</a></li>
               <li class="nav-item py-md-2"><a href="manage-authors.php" class="nav-link" style="color:white;">Manage Authors</a></li>
               <li class="nav-item py-md-2"><a href="manage-publishers.php" class="nav-link" style="color:white;">Manage Publishers</a></li>
               <li class="nav-item py-md-2"><a href="manage-genres.php" class="nav-link" style="color:white;">Manage Genres</a></li>
               <li class="nav-item py-md-2"><a href="manage-events.php" class="nav-link" style="color:white;">Manage Events</a></li>
+              <li class="nav-item py-md-2"><a href="manage-libraries.php" class="nav-link" style="color:white;">Manage Libraries</a></li>
               <li class="nav-item py-md-2"><a href="admin-profile.php" class="nav-link" style="color:white;">My Profile</a></li>
 
 
