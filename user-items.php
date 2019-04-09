@@ -6,7 +6,19 @@ if(strlen($_SESSION['login'])==0)
  {
  header('location:index.php');
 }
- else{?>
+ else{
+   if(isset($_GET['del']))
+   {
+   $id=$_GET['del'];
+   $sql = "delete from rent WHERE ISBN=:id";
+   $query = $dbh->prepare($sql);
+   $query -> bindParam(':id',$id, PDO::PARAM_STR);
+   $query -> execute();
+   $_SESSION['delmsg']="Item deleted successfully";
+   header('location:user-items.php');
+
+   }
+   ?>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -123,7 +135,7 @@ foreach($results as $result)
                                             <td class="center"><?php echo htmlentities($result->rentDate);?></td>
                                             <td class="center"><?php echo htmlentities($result->returnDate);?></td>
                                             <td class="center">
-                                            <a href="#<?php echo htmlentities($result->id);?>"><button class="btn btn-success"><i class="fa fa-edit "></i>Return</button>
+                                              <a href="user-items.php?del=<?php echo htmlentities($result->ISBN);?>" onclick="return confirm('Return Item?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i>Return</button>
                                             </td>
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>

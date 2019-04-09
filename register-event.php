@@ -8,25 +8,25 @@ header('location:index.php');
 }
 else{
 
-if(isset($_POST['checkout']))
+if(isset($_POST['register']))
 {
-$isbn=$_REQUEST['ISBN'];
+$location=$_REQUEST['location'];
+$startTime=$_REQUEST['startTime'];
+$endTime=$_REQUEST['endTime'];
+$name=$_REQUEST['name'];
+$description=$_REQUEST['description'];
 $userid=$_SESSION['userid'];
-$currentdate=date("Y-m-d");
-$duedate=date("Y-m-d", strtotime("+1 week"));
-$collectionid=intval($_GET['collectionid']);
-$sql="INSERT INTO rent(ISBN,CollectionID,UserID,rentDate,returnDate) VALUES(:isbn,:collectionid,:userid,:currentdate,:duedate)";
+$sql="INSERT INTO event(eLocation,startTime,endTime,eName,description,UserID) VALUES(:location,:startTime,:endTime,:name,:description,:userid)";
 $query = $dbh->prepare($sql);
-$query->bindParam(':isbn',$isbn);
+$query->bindParam(':location',$location);
+$query->bindParam(':startTime',$startTime);
+$query->bindParam(':endTime',$endTime);
+$query->bindParam(':name',$name);
+$query->bindParam(':description',$description);
 $query->bindParam(':userid',$userid);
-$query->bindParam(':collectionid',$collectionid);
-$query->bindParam(':currentdate',$currentdate);
-$query->bindParam(':duedate',$duedate);
 $query->execute();
-$_SESSION['msg']="ISBN: " . $isbn;
-/* $_SESSION['msg']="User ID: " . $userid;*/
-/* $_SESSION['msg']="Collection ID: " . $collectionid;*/
-header('location:user-items.php');
+$_SESSION['msg']="Event Registration Successful!";
+header('location:event-list.php');
 
 }
 ?>
@@ -37,7 +37,7 @@ header('location:user-items.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>User Checkout</title>
+    <title>Event Registration</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/js/dataTables/dataTables.bootstrap4.css" rel="stylesheet" />
@@ -56,7 +56,7 @@ header('location:user-items.php');
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Checkout Item</h4>
+                <h4 class="header-line">Event Registration</h4>
             </div>
         </div>
         <form role="form" method="post">
@@ -69,16 +69,16 @@ header('location:user-items.php');
 								<thead>
 									<tr>
 										<th>#</th>
-                                        <th>Collection ID</th>
-                                        <th>Item Name</th>
-                                        <th>ISBN</th>
+                    <th>Location</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Event Name</th>
+                    <th>Description</th>
                                     </tr>
                                 </thead>
 								<tbody>
 <?php
-$sql = "SELECT id, Title, ISBN
-from collection
-where id = '" . $_GET['collectionid'] . "'";
+$sql = "SELECT * FROM event ORDER BY startTime DESC";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -89,11 +89,13 @@ foreach($results as $result)
 {               ?>
 									<tr class="odd gradeX">
 										<td class="center"><?php echo htmlentities($num);?></td>
-											<td class="center"><?php echo htmlentities($result->id);?></td>
-                                            <td class="center"><?php echo htmlentities($result->Title);?></td>
-                                            <td class="center"><?php echo htmlentities($result->ISBN);?></td>
-                                            <input type="hidden" name="ISBN" value=<?php echo htmlentities($result->ISBN);?>>
-                                        </td>
+                    <td class="center"><?php echo htmlentities($result->eLocation);?></td>
+                    <td class="center"><?php echo htmlentities($result->startTime);?></td>
+                    <td class="center"><?php echo htmlentities($result->endTime);?></td>
+                    <td class="center"><?php echo htmlentities($result->eName);?></td>
+                    <td class="center"><?php echo htmlentities($result->description);?></td>
+                    <input type="hidden" name="userid" value=<?php echo htmlentities($result->UserID);?>>
+
                                     </tr>
 
                                     <?php $num=$num+1;}} ?>
@@ -101,7 +103,7 @@ foreach($results as $result)
                             </table>
 						</div>
 
-<button type="submit" name="checkout" id="submit" class="btn btn-info" style="float:right;">Checkout</button>
+<button type="submit" name="register" id="submit" class="btn btn-info" style="float:right;">Register</button>
 					</div>
 				</div>
 			</div>

@@ -2,22 +2,12 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
-if(strlen($_SESSION['alogin'])==0)
+if(strlen($_SESSION['login'])==0)
     {
 header('location:index.php');
 }
 else{
-if(isset($_GET['del']))
-{
-$id=$_GET['del'];
-$sql = "delete from collection  WHERE id=:id";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':id',$id, PDO::PARAM_STR);
-$query -> execute();
-$_SESSION['delmsg']="Category deleted scuccessfully ";
-header('location:manage-events.php');
 
-}
     ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -26,7 +16,7 @@ header('location:manage-events.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Manage Events</title>
+    <title>Event List</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/js/dataTables/dataTables.bootstrap4.css" rel="stylesheet" />
@@ -40,13 +30,14 @@ header('location:manage-events.php');
 
 </head>
 <body>
-<?php include('admin-navbar.php');?>
+
+<?php include('user-navbar.php');?>
+
     <div class="content-wrapper">
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Manage Events</h4>
-                <a href="add-event.php"><button type="button" name="addEvent" class="btn btn-success" style="float:right;">Add Event</button></a>
+                <h4 class="header-line">Event List</h4>
     </div>
      <div class="row">
     <?php if($_SESSION['error']!="")
@@ -128,8 +119,7 @@ foreach($results as $result)
                                             <td class="center"><?php echo htmlentities($result->description);?></td>
                                             <td class="center">
 
-                                            <a href="edit-event.php?eLocation=<?php echo htmlentities($result->eLocation);?>&eName=<?php echo htmlentities($result->eName);?>&startTime=<?php echo htmlentities($result->startTime);?>&endTime=<?php echo htmlentities($result->endTime);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i>Edit</button>
-                                          <a href="#<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i>Delete</button>
+                                            <a href="register-event.php?eLocation=<?php echo htmlentities($result->eLocation);?>&eName=<?php echo htmlentities($result->eName);?>&startTime=<?php echo htmlentities($result->startTime);?>&endTime=<?php echo htmlentities($result->endTime);?>"><button class="btn btn-success"><i class="fa fa-edit "></i>Register</button>
                                             </td>
                                         </tr>
  <?php $num=$num+1;}} ?>
