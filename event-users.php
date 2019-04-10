@@ -7,7 +7,6 @@ if(strlen($_SESSION['alogin'])==0)
 header('location:index.php');
 }
 else{
-
     ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -123,7 +122,7 @@ foreach($results as $result)
 
                 </div>
             </div>
-            
+
             <h5 class="header-line">Attendees</h5>
             <div class="row">
                 <div class="col-md-12">
@@ -140,7 +139,7 @@ foreach($results as $result)
                                     </thead>
                                     <tbody>
 <?php $sql = "SELECT register.UserID, users.FullName
-FROM register 
+FROM register
 INNER JOIN users ON users.UserID=register.UserID
 WHERE register.eName='" . urldecode($_GET['eName']) . "'
 AND register.eLocation='" . urldecode($_GET['eLocation']) . "'
