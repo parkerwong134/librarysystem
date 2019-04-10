@@ -18,16 +18,16 @@
       </button>
       <div class="navbar-collapse collapse" id="navbarNav">
           <ul class="navbar-nav">
-              <li class="nav-item py-md-2"><a href="user-items.php" class="nav-link">My Items</a></li>
-              <li class="nav-item py-md-2"><a href="user-profile.php" class="nav-link">My Profile</a></li>
-              <li class="nav-item py-md-2"><a href="user-view.php" class="nav-link">View Collection</a></li>
-              <li class="nav-item py-md-2"><a href="event-list.php" class="nav-link">Event List</a></li>
+              <li class="nav-item py-md-2"><a href="user-items.php" class="nav-link" style="color:white;">My Items</a></li>
+              <li class="nav-item py-md-2"><a href="user-profile.php" class="nav-link" style="color:white;">My Profile</a></li>
+              <li class="nav-item py-md-2"><a href="user-view.php" class="nav-link" style="color:white;">View Collection</a></li>
+              <li class="nav-item py-md-2"><a href="event-list.php" class="nav-link" style="color:white;">Event List</a></li>
           </ul>
 <?php if($_SESSION['login'])
   {
 ?>
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item py-md-2 "><a href="logout.php" class="nav-link">Logout</a></li>
+            <li class="nav-item py-md-2 "><a href="logout.php" class="nav-link" style="color:white;">Logout</a></li>
           </ul>
 <?php }?>
       </div>
