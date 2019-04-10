@@ -14,9 +14,7 @@ $authorid=intval($_GET['authorid']);
 $author=$_POST['author'];
 $birthday=$_POST['birthday'];
 $status=$_POST['status'];
-$sql="update authors set AuthorName=:author where id=:authorid";
-$sql="update authors set Birthday=:birthday where id=:authorid";
-$sql="update authors set Status=:status where id=:authorid";
+$sql="update authors set AuthorName=:author, Birthday=:birthday,Status=:status where id=:authorid";
 $query = $dbh->prepare($sql);
 $query->bindParam(':author',$author,PDO::PARAM_STR);
 $query->bindParam(':birthday',$birthday,PDO::PARAM_STR);
@@ -89,16 +87,16 @@ foreach($results as $result)
 </div>
 
 <div class="radio">
-  <label>Status<br><input type="radio" name="status" value="<?php echo htmlentities($result->Status);?>" checked required >Active</label>
+  <label>Status<br><input type="radio" name="status" checked="checked" value="Active" required >Active</label>
 </div>
 <div class="radio">
-  <label><input type="radio" name="status" value="<?php echo htmlentities($result->Status);?>" required >Deceased</label>
+  <label><input type="radio" name="status" value="Deceased" required >Deceased</label>
 </div>
 
 
 
 <?php }} ?>
-</div>
+
 
 <button type="submit" name="update" class="btn btn-info">Update </button>
 
