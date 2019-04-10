@@ -29,28 +29,27 @@ header('location:manage-authors.php');
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Manage Authors</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
-    <link href="assets/js/dataTables/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <script src="assets/js/jquery-1.10.2.js"></script>
     <script src="assets/js/bootstrap.js"></script>
-    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
-    <script src="assets/js/dataTables/dataTables.bootstrap4.js"></script>
     <script src="assets/js/custom.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
 </head>
 <body>
 
 <?php include('admin-navbar.php');?>
-<!-- MENU SECTION END-->
     <div class="content-wrapper">
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
                 <h4 class="header-line">Manage Authors</h4>
                 <a href="add-author.php"><button type="button" name="addAuthor" class="btn btn-success" style="float:right;">Add Author</button></a>
+
     </div>
      <div class="row">
     <?php if($_SESSION['error']!="")
@@ -102,7 +101,7 @@ header('location:manage-authors.php');
         </div>
             <div class="row">
                 <div class="col-md-12">
-                    <!-- Advanced Tables -->
+
                     <div class="panel panel-default">
 
                         <div class="panel-body">

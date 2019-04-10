@@ -5,7 +5,6 @@
 <meta name="author" content="" />
 <head>
 	<title>LBS</title>
-	<!-- BOOTSTRAP CORE STYLE  -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<style>
 		h1 {color:blue;

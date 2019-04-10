@@ -16,7 +16,7 @@ $endTime=$_REQUEST['endTime'];
 $name=$_REQUEST['name'];
 $description=$_REQUEST['description'];
 
-$sql="UPDATE event 
+$sql="UPDATE event
 SET eLocation=:location, startTime=:startTime, endTime=:endTime, eName=:name, description=:description
 WHERE eName='" . urldecode($_GET['eName']) . "'
 AND eLocation='" . urldecode($_GET['eLocation']) . "'
@@ -41,16 +41,15 @@ header('location:manage-events.php');
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Edit Event</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
-    <link href="assets/js/dataTables/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <script src="assets/js/jquery-1.10.2.js"></script>
     <script src="assets/js/bootstrap.js"></script>
-    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
-    <script src="assets/js/dataTables/dataTables.bootstrap4.js"></script>
     <script src="assets/js/custom.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
 </head>
@@ -69,7 +68,7 @@ header('location:manage-events.php');
 
 <div class="panel-body">
 <form role="form" method="post">
-	
+
 <div class="form-group">
 <label>Event Location<span style="color:red;">*</span></label>
 <select class="form-control" name="location" required="required">

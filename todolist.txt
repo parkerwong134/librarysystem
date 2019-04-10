@@ -1,4 +1,0 @@
-We need to implement how users borrow from the collection. So we first need to make a
-'rent/borrow' table that has the collection id and user id as a foreign key. Other
-columns might have to include borrow date and return date (dates will then have to
-be implemented into the other tables).

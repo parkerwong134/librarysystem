@@ -5,26 +5,14 @@ error_reporting(0);
 
 if(isset($_POST['signup']))
 {
-  while(true){
-  $UserID=rand(1,5000);
-  $result = "SELECT * FROM users WHERE UserID='$UserID'";
-  if($result == 1)
-  {
-    continue;
-  }
-  else{
-    break;
-  }
-}
 
 $fname=$_POST['fullname'];
 $username=$_POST['username'];
 $email=$_POST['email'];
 $phonenum=$_POST['phonenum'];
 $password=$_POST['password'];
-$sql="INSERT INTO users(UserID,FullName,UserName,Email,PhoneNumber,Password) VALUES(:UserID,:fname,:username,:email,:phonenum,:password)";
+$sql="INSERT INTO users(FullName,UserName,Email,PhoneNumber,Password) VALUES(:fname,:username,:email,:phonenum,:password)";
 $query = $dbh->prepare($sql);
-$query->bindParam(':UserID',$UserID,PDO::PARAM_STR);
 $query->bindParam(':fname',$fname,PDO::PARAM_STR);
 $query->bindParam(':username',$username,PDO::PARAM_STR);
 $query->bindParam(':email',$email,PDO::PARAM_STR);

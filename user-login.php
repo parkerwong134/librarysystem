@@ -9,7 +9,7 @@ if(isset($_POST['login']))
 {
 
 $username=$_POST['username'];
-$password=$_POST['password'];
+$password=md5($_POST['password']);
 $sql ="SELECT Password,UserName,UserID FROM users WHERE UserName=:username and Password=:password";
 $query= $dbh -> prepare($sql);
 $query-> bindParam(':username', $username, PDO::PARAM_STR);

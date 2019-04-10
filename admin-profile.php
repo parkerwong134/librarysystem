@@ -74,7 +74,7 @@ foreach($results as $result)
 { ?>
 
 <div class="form-group">
-<label>Employee ID : </label>
+<label>Employee ID: </label>
 <?php echo htmlentities($result->EmployeeID);?>
 </div>
 

@@ -30,16 +30,15 @@ header('location:manage-libraries.php');
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Add Library</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
-    <link href="assets/js/dataTables/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <script src="assets/js/jquery-1.10.2.js"></script>
     <script src="assets/js/bootstrap.js"></script>
-    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
-    <script src="assets/js/dataTables/dataTables.bootstrap4.js"></script>
     <script src="assets/js/custom.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
 </head>
@@ -58,8 +57,8 @@ header('location:manage-libraries.php');
 
 <div class="panel-body">
 <form role="form" method="post">
-	
-	
+
+
 <div class="form-group">
 <label>Library Name<span style="color:red;">*</span></label>
 <input class="form-control" type="text" name="lname" autocomplete="off" required="required" />
@@ -68,7 +67,7 @@ header('location:manage-libraries.php');
 <div class="form-group">
 <label>Address<span style="color:red;">*</span></label>
 <input class="form-control" type="text" name="laddress" autocomplete="off" required="required" />
-</div>	
+</div>
 
 
 <button type="submit" name="add" class="btn btn-info">Add</button>
@@ -82,4 +81,3 @@ header('location:manage-libraries.php');
 </body>
 </html>
 <?php } ?>
-

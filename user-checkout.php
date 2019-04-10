@@ -23,9 +23,7 @@ $query->bindParam(':collectionid',$collectionid);
 $query->bindParam(':currentdate',$currentdate);
 $query->bindParam(':duedate',$duedate);
 $query->execute();
-$_SESSION['msg']="ISBN: " . $isbn;
-/* $_SESSION['msg']="User ID: " . $userid;*/
-/* $_SESSION['msg']="Collection ID: " . $collectionid;*/
+$_SESSION['msg']="Item checked out successfully!";
 header('location:user-items.php');
 
 }
