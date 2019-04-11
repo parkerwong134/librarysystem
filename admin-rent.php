@@ -34,7 +34,7 @@ else{
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Manage Borrowed Items</h4>
+                <h4 class="header-line">View Borrowed Items</h4>
     </div>
      <div class="row">
     <?php if($_SESSION['error']!="")
@@ -89,15 +89,16 @@ else{
                                             <th>ISBN </th>
                                             <th>Borrow Date</th>
                                             <th>Return Date</th>
+                                            <th>Overdue Days</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
 <?php $sql = "SELECT users.FullName,collection.Title,collection.ISBN,
-rent.rentDate,rent.returnDate,rent.ISBN as rid
+rent.rentDate,rent.returnDate,rent.ISBN as rid, rent.overdue
 from rent join users on users.UserID=rent.UserID
 join collection on collection.id=rent.CollectionID
-order by rent.ISBN desc";
+order by rent.overdue desc";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -113,6 +114,7 @@ foreach($results as $result)
                                             <td class="center"><?php echo htmlentities($result->ISBN);?></td>
                                             <td class="center"><?php echo htmlentities($result->rentDate);?></td>
                                             <td class="center"><?php echo htmlentities($result->returnDate);?></td>
+                                            <td class="center"><?php echo htmlentities($result->overdue);?></td>
 
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>

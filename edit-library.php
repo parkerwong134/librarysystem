@@ -10,14 +10,45 @@ else{
 
 if(isset($_POST['update']))
 {
-$lname=$_GET['lname'];
-$laddress=$_POST['laddress'];
-$sql="update library set lName=:lname where lName=:lname";
-$sql="update library set address=:laddress where lName=:lname";
+$lname=$_REQUEST['lname'];
+$laddress=$_REQUEST['laddress'];
+$sql="INSERT INTO library(lName, address) VALUES(:lname, :laddress)";
+
 $query = $dbh->prepare($sql);
-$query->bindParam(':lname',$lname,PDO::PARAM_STR);
-$query->bindParam(':laddress',$laddress,PDO::PARAM_STR);
+$query->bindParam(':lname',$lname);
+$query->bindParam(':laddress',$laddress);
 $query->execute();
+
+$sql="SELECT * FROM event WHERE event.eLocation='" . urldecode($_GET['lName']) . "'";
+$query = $dbh->prepare($sql);
+$query->execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+if($query->rowCount() > 0)
+{
+foreach($results as $result)
+{               
+	$sql2="INSERT INTO event(eLocation, startTime, endTime, eName, description) VALUES('" . $_REQUEST['lname'] . "', '" . $result->startTime . "', '" . $result->endTime . "', '" . $result->eName . "', '" . $result->description . "')";
+	$query2 = $dbh->prepare($sql2);
+	$query2->execute();
+}}
+
+$sql3="UPDATE register 
+SET register.eLocation='" . $_REQUEST['lname'] . "'
+WHERE register.eLocation='" . urldecode($_GET['lName']) . "'";
+
+$query3 = $dbh->prepare($sql3);
+$query3->execute();
+
+$sql4="DELETE FROM event WHERE eLocation = '" . urldecode($_GET['lName']) . "'";
+
+$query4 = $dbh->prepare($sql4);
+$query4->execute();
+
+$sql5="DELETE FROM library WHERE lName = '" . urldecode($_GET['lName']) . "'";
+
+$query5 = $dbh->prepare($sql5);
+$query5->execute();
+
 $_SESSION['updatemsg']="Library updated successfully";
 header('location:manage-libraries.php');
 
@@ -59,11 +90,15 @@ header('location:manage-libraries.php');
 <form role="form" method="post">
 <div class="form-group">
 
+
+<div class="form-group">
+<label>Library Name</label>
+<input class="form-control" type="text" name="lname" value="<?php echo htmlentities(urldecode($_GET['lName']));?>" required />
+</div>
+
 <?php
-$lname=$_GET['lname'];
-$sql = "SELECT * from library where lName=:lname";
+$sql = "SELECT address from library where lName='" . urldecode($_GET['lName']) . "'";
 $query = $dbh -> prepare($sql);
-$query->bindParam(':lname',$lname,PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
 $cnt=1;
@@ -71,13 +106,6 @@ if($query->rowCount() > 0)
 {
 foreach($results as $result)
 {               ?>
-
-
-
-<div class="form-group">
-<label>Library Name</label>
-<input class="form-control" type="text" name="lname" value="<?php echo htmlentities($result->lName);?>" required />
-</div>
 
 <div class="form-group">
 <label>Address</label>

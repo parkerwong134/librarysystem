@@ -7,30 +7,31 @@ CREATE TABLE `admin` (
   `FullName` varchar(100) DEFAULT NULL,
   `PhoneNumber` varchar(10) NOT NULL,
   `Email`    varchar(100) NOT NULL,
-  `Birthday` varchar(10) NOT NULL,
+  `Birthday` DATE DEFAULT NULL,
   `UserName` varchar(100) NOT NULL,
   `Password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `admin` (`EmployeeID`, `FullName`, `PhoneNumber`, `Birthday`, `Email` , `UserName`, `Password`) VALUES
-(1, 'Parker Wong', '4031234567', '1998-08-23', 'admin@gmail.com', 'admin', '5f4dcc3b5aa765d61d8327deb882cf99');
+(1, 'Parker Wong', '4031234567', '1998-08-23', 'admin@gmail.com', 'admin', MD5('password'));
 
 CREATE TABLE `users` (
   `UserID` int(11) DEFAULT NULL,
   `FullName` varchar(120) DEFAULT NULL,
   `PhoneNumber` varchar(10) DEFAULT NULL,
   `Email`    varchar(100) NOT NULL,
+  `Birthday` DATE DEFAULT NULL, 
   `UserName` varchar(100) DEFAULT NULL,
   `Password` varchar(120) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `users` (`UserID`, `FullName`, `PhoneNumber`, `Email`, `UserName`, `Password`) VALUES
-(1, 'Zi Ang', '5871234567', 'ziang@gmail.com', 'ziang', '4860cc0a2d75bd2e25b45becfb9cc9e8');
+INSERT INTO `users` (`UserID`, `FullName`, `PhoneNumber`, `Birthday`, `Email`, `UserName`, `Password`) VALUES
+(1, 'Zi Ang', '5871234567', '1993-09-30', 'ziang@gmail.com', 'ziang', MD5('yihang'));
 
 CREATE TABLE `authors` (
   `id` int(11) NOT NULL,
   `AuthorName` varchar(159) DEFAULT NULL,
-  `Birthday` varchar(10) DEFAULT NULL,
+  `Birthday` DATE DEFAULT NULL,
   `Status` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -86,7 +87,7 @@ CREATE TABLE `rent` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `rent` (`ISBN`, `CollectionID`, `UserID`, `rentDate`, `returnDate`, `overdue`) VALUES
-(222333, 1, '1', '2019-03-09', '2019-04-02', 0);
+(222333, 1, 1, '2019-03-09', '2019-04-02', 9);
 
 CREATE TABLE `library` (
   `address` varchar(255) NOT NULL,

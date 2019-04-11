@@ -14,7 +14,7 @@ if(strlen($_SESSION['login'])==0)
    $query = $dbh->prepare($sql);
    $query -> bindParam(':id',$id, PDO::PARAM_STR);
    $query -> execute();
-   $_SESSION['delmsg']="Item deleted successfully";
+   $_SESSION['delmsg']="Item returned successfully";
    header('location:user-items.php');
 
    }

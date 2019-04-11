@@ -9,17 +9,19 @@ header('location:index.php');
 else{
 if(isset($_POST['change']))
   {
-$password=$_POST['password'];
-$newpassword=$_POST['newpassword'];
+$password=md5($_POST['password']);
+$newpassword=md5($_POST['newpassword']);
 $email=$_SESSION['login'];
-$sql ="SELECT Password FROM users WHERE Password=:password";
+$uid=$_SESSION['userid'];
+$sql ="SELECT Password FROM users WHERE Password=:password AND UserID=:uid";
 $query= $dbh -> prepare($sql);
 $query-> bindParam(':password', $password, PDO::PARAM_STR);
+$query->bindParam(':uid',$uid,PDO::PARAM_STR);
 $query-> execute();
 $results = $query -> fetchAll(PDO::FETCH_OBJ);
 if($query -> rowCount() > 0)
 {
-$con="update users set Password=:newpassword";
+$con="update users set Password=:newpassword where UserID='" . $_SESSION['userid'] . "'";
 $chngpwd1 = $dbh->prepare($con);
 $chngpwd1-> bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
 $chngpwd1->execute();
@@ -105,12 +107,12 @@ return true;
 </div>
 
 <div class="form-group">
-<label>Enter Password</label>
+<label>Enter New Password</label>
 <input class="form-control" type="password" name="newpassword" autocomplete="off" required  />
 </div>
 
 <div class="form-group">
-<label>Confirm Password </label>
+<label>Confirm New Password </label>
 <input class="form-control"  type="password" name="confirmpassword" autocomplete="off" required  />
 </div>
 

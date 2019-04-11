@@ -16,12 +16,8 @@ $endTime=$_REQUEST['endTime'];
 $name=$_REQUEST['name'];
 $description=$_REQUEST['description'];
 
-$sql="UPDATE event
-SET eLocation=:location, startTime=:startTime, endTime=:endTime, eName=:name, description=:description
-WHERE eName='" . urldecode($_GET['eName']) . "'
-AND eLocation='" . urldecode($_GET['eLocation']) . "'
-AND startTime='" . urldecode($_GET['startTime']) . "'
-AND endTime='" . urldecode($_GET['endTime']) . "'";
+$sql="INSERT INTO event(eLocation,startTime,endTime,eName,description) VALUES(:location,:startTime,:endTime,:name,:description)";
+
 $query = $dbh->prepare($sql);
 $query->bindParam(':location',$location);
 $query->bindParam(':startTime',$startTime);
@@ -29,7 +25,30 @@ $query->bindParam(':endTime',$endTime);
 $query->bindParam(':name',$name);
 $query->bindParam(':description',$description);
 $query->execute();
-$_SESSION['msg']="Event Name: " . $name;
+
+$sql2="UPDATE register
+SET register.eLocation='" . $_REQUEST['location'] . "', 
+register.startTime='" . $_REQUEST['startTime'] . "', 
+register.endTime='" . $_REQUEST['endTime'] . "', 
+register.eName='" . $_REQUEST['name'] . "'
+WHERE register.eName='" . urldecode($_GET['eName']) . "'
+AND register.eLocation='" . urldecode($_GET['eLocation']) . "'
+AND register.startTime='" . urldecode($_GET['startTime']) . "'
+AND register.endTime='" . urldecode($_GET['endTime']) . "'";
+
+$query2 = $dbh->prepare($sql2);
+$query2->execute();
+
+$sql3="DELETE FROM event
+WHERE event.eName='" . urldecode($_GET['eName']) . "'
+AND event.eLocation='" . urldecode($_GET['eLocation']) . "'
+AND event.startTime='" . urldecode($_GET['startTime']) . "'
+AND event.endTime='" . urldecode($_GET['endTime']) . "'";
+
+$query3 = $dbh->prepare($sql3);
+$query3->execute();
+
+$_SESSION['msg']="Event Change: " . $_REQUEST['name'];
 header('location:manage-events.php');
 }
 ?>
@@ -75,7 +94,7 @@ header('location:manage-events.php');
 <option value="<?php echo htmlentities(urldecode($_GET['eLocation']));?>"><?php echo htmlentities(urldecode($_GET['eLocation']));?></option>
 
 <?php
-$sql = "SELECT lName from library where lName <> '" . urldecode($_GET['eLocation']) . "'";
+$sql = "SELECT lName FROM library WHERE lName <> '" . urldecode($_GET['eLocation']) . "'";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);

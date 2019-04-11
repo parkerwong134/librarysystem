@@ -73,13 +73,7 @@ header('location:admin-view.php');
 
 <?php
 $collectionid=intval($_GET['collectionid']);
-$sql = "SELECT collection.Title,genre.GenreName,Genre.id as genreid,
-authors.AuthorName,authors.id as authorid,
-publishers.publishName,publishers.id as publishid,
-collection.ISBN,collection.Price,collection.itemType,collection.id as collectionid
-from collection join genre on genre.id=collection.GenreID
-join authors on authors.id=collection.AuthorID
-join publishers on publishers.id=collection.PublishID
+$sql = "SELECT Title from collection
 where collection.id=:collectionid";
 $query = $dbh -> prepare($sql);
 $query->bindParam(':collectionid',$collectionid,PDO::PARAM_STR);
@@ -94,13 +88,29 @@ foreach($results as $result)
 <div class="form-group">
 <label>Item Name<span style="color:red;">*</span></label>
 <input class="form-control" type="text" name="title" value="<?php echo htmlentities($result->Title);?>" required />
+<?php }} ?>
 </div>
 
+<?php
+$collectionid=intval($_GET['collectionid']);
+$sql = "SELECT * from genre
+where genre.id = 
+(SELECT collection.GenreID from collection
+where collection.id=:collectionid)";
+$query = $dbh -> prepare($sql);
+$query->bindParam(':collectionid',$collectionid,PDO::PARAM_STR);
+$query->execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+$cnt=1;
+if($query->rowCount() > 0)
+{
+foreach($results as $result)
+{               ?>
 <div class="form-group">
 <label>Genre<span style="color:red;">*</span></label>
 <select class="form-control" name="genre" required="required">
-<option value="<?php echo htmlentities($result->genreid);?>"> <?php echo htmlentities($genrename=$result->GenreName);?></option>
-
+<option value="<?php echo htmlentities($result->id);?>"> <?php echo htmlentities($genrename=$result->GenreName);?></option>
+<?php }} ?>
 <?php
 $sql = "SELECT * from genre";
 $query = $dbh -> prepare($sql);
@@ -122,10 +132,27 @@ else {
 </div>
 
 
+<?php
+$collectionid=intval($_GET['collectionid']);
+$sql = "SELECT * from authors
+where authors.id = 
+(SELECT collection.AuthorID from collection
+where collection.id=:collectionid)";
+$query = $dbh -> prepare($sql);
+$query->bindParam(':collectionid',$collectionid,PDO::PARAM_STR);
+$query->execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+$cnt=1;
+if($query->rowCount() > 0)
+{
+foreach($results as $result)
+{               ?>
+
 <div class="form-group">
 <label>Author/Producer<span style="color:red;">*</span></label>
 <select class="form-control" name="author" required="required">
-<option value="<?php echo htmlentities($result->authorid);?>"> <?php echo htmlentities($athrname=$result->AuthorName);?></option>
+<option value="<?php echo htmlentities($result->id);?>"> <?php echo htmlentities($athrname=$result->AuthorName);?></option>
+<?php }} ?>
 <?php
 
 $sql2 = "SELECT * from authors";
@@ -147,10 +174,27 @@ continue;
 </select>
 </div>
 
+
+<?php
+$collectionid=intval($_GET['collectionid']);
+$sql = "SELECT * from publishers
+where publishers.ID = 
+(SELECT collection.PublishID from collection
+where collection.id=:collectionid)";
+$query = $dbh -> prepare($sql);
+$query->bindParam(':collectionid',$collectionid,PDO::PARAM_STR);
+$query->execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+$cnt=1;
+if($query->rowCount() > 0)
+{
+foreach($results as $result)
+{               ?>
 <div class="form-group">
 <label>Publisher<span style="color:red;">*</span></label>
 <select class="form-control" name="publish" required="required">
-<option value="<?php echo htmlentities($result->publishid);?>"> <?php echo htmlentities($publishername=$result->publishName);?></option>
+<option value="<?php echo htmlentities($result->ID);?>"> <?php echo htmlentities($publishername=$result->publishName);?></option>
+<?php }} ?>
 <?php
 
 $sql = "SELECT * from publishers";
@@ -172,6 +216,20 @@ else
 <?php }}} ?>
 </select>
 </div>
+
+<?php
+$collectionid=intval($_GET['collectionid']);
+$sql = "SELECT itemType, ISBN, Price from collection
+where collection.id=:collectionid";
+$query = $dbh -> prepare($sql);
+$query->bindParam(':collectionid',$collectionid,PDO::PARAM_STR);
+$query->execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+$cnt=1;
+if($query->rowCount() > 0)
+{
+foreach($results as $result)
+{               ?>
 
 <div class="form-group">
 <label>Item Type<span style="color:red;">*</span></label>

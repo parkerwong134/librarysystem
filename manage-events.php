@@ -9,12 +9,21 @@ header('location:index.php');
 else{
 if(isset($_GET['del']))
 {
-$id=$_GET['del'];
-$sql = "delete from collection  WHERE id=:id";
+$sql = "DELETE FROM event 
+WHERE event.eName='" . urldecode($_GET['eName']) . "'
+AND event.eLocation='" . urldecode($_GET['del']) . "'
+AND event.startTime='" . urldecode($_GET['startTime']) . "'
+AND event.endTime='" . urldecode($_GET['endTime']) . "'";
+$sql2 = "DELETE FROM register
+WHERE register.eName='" . urldecode($_GET['eName']) . "'
+AND register.eLocation='" . urldecode($_GET['del']) . "'
+AND register.startTime='" . urldecode($_GET['startTime']) . "'
+AND register.endTime='" . urldecode($_GET['endTime']) . "'";
 $query = $dbh->prepare($sql);
-$query -> bindParam(':id',$id, PDO::PARAM_STR);
 $query -> execute();
-$_SESSION['delmsg']="Category deleted scuccessfully ";
+$query2 = $dbh->prepare($sql2);
+$query2 -> execute();
+$_SESSION['delmsg']="Category deleted scuccessfully!";
 header('location:manage-events.php');
 
 }
@@ -129,7 +138,7 @@ foreach($results as $result)
 
                                             <a href="edit-event.php?eLocation=<?php echo htmlentities($result->eLocation);?>&eName=<?php echo htmlentities($result->eName);?>&startTime=<?php echo htmlentities($result->startTime);?>&endTime=<?php echo htmlentities($result->endTime);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i>Edit</button>
                                             <a href="event-users.php?eLocation=<?php echo htmlentities($result->eLocation);?>&eName=<?php echo htmlentities($result->eName);?>&startTime=<?php echo htmlentities($result->startTime);?>&endTime=<?php echo htmlentities($result->endTime);?>"><button class="btn btn-success"><i class="fa fa-edit "></i>View Attendees</button>
-                                            <a href="manage-event.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i>Delete</button>
+                                            <a href="manage-events.php?del=<?php echo htmlentities($result->eLocation);?>&eName=<?php echo htmlentities($result->eName);?>&startTime=<?php echo htmlentities($result->startTime);?>&endTime=<?php echo htmlentities($result->endTime);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i>Delete</button>
                                             </td>
                                         </tr>
  <?php $num=$num+1;}} ?>

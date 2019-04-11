@@ -13,7 +13,7 @@ if(isset($_POST['checkout']))
 $isbn=$_REQUEST['ISBN'];
 $userid=$_SESSION['userid'];
 $currentdate=date("Y-m-d");
-$duedate=date("Y-m-d", strtotime("+1 week"));
+$duedate=date("Y-m-d", strtotime("+1 month"));
 $collectionid=intval($_GET['collectionid']);
 $sql="INSERT INTO rent(ISBN,CollectionID,UserID,rentDate,returnDate) VALUES(:isbn,:collectionid,:userid,:currentdate,:duedate)";
 $query = $dbh->prepare($sql);
@@ -69,7 +69,6 @@ header('location:user-items.php');
 										<th>#</th>
                                         <th>Collection ID</th>
                                         <th>Item Name</th>
-                                        <th>ISBN</th>
                                     </tr>
                                 </thead>
 								<tbody>
@@ -89,7 +88,6 @@ foreach($results as $result)
 										<td class="center"><?php echo htmlentities($num);?></td>
 											<td class="center"><?php echo htmlentities($result->id);?></td>
                                             <td class="center"><?php echo htmlentities($result->Title);?></td>
-                                            <td class="center"><?php echo htmlentities($result->ISBN);?></td>
                                             <input type="hidden" name="ISBN" value=<?php echo htmlentities($result->ISBN);?>>
                                         </td>
                                     </tr>

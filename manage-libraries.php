@@ -9,11 +9,23 @@ header('location:index.php');
 else{
 if(isset($_GET['del']))
 {
-$lName=$_GET['del'];
-$sql = "delete from library  WHERE lName=:lName";
+$lName=urldecode($_GET['del']);
+
+$sql="DELETE FROM register WHERE eLocation = '" . urldecode($_GET['del']) . "'";
+
 $query = $dbh->prepare($sql);
-$query -> bindParam(':lName',$lName, PDO::PARAM_STR);
-$query -> execute();
+$query->execute();
+
+$sql2="DELETE FROM event WHERE eLocation = '" . urldecode($_GET['del']) . "'";
+
+$query2 = $dbh->prepare($sql2);
+$query2->execute();
+
+$sql3 = "delete from library  WHERE lName=:lName";
+$query3 = $dbh->prepare($sql3);
+$query3 -> bindParam(':lName',$lName, PDO::PARAM_STR);
+$query3 -> execute();
+
 $_SESSION['delmsg']="Library deleted";
 header('location:manage-libraries.php');
 
@@ -28,7 +40,7 @@ header('location:manage-libraries.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Manage Authors</title>
+    <title>Manage Libraries</title>
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
@@ -131,7 +143,7 @@ foreach($results as $result)
                                             <td class="center"><?php echo htmlentities($result->address);?></td>
                                             <td class="center">
 
-                                            <a href="edit-library.php?lname=<?php echo htmlentities($result->lName);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button>
+                                            <a href="edit-library.php?lName=<?php echo htmlentities($result->lName);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button>
                                           <a href="manage-libraries.php?del=<?php echo htmlentities($result->lName);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
                                             </td>
                                         </tr>

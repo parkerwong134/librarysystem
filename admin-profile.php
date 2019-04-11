@@ -9,12 +9,14 @@ header('location:index.php');
 else{
 if(isset($_POST['update']))
 {
+$uid=$_SESSION['adminid'];
 $fname=$_POST['fullname'];
 $phonenum=$_POST['phonenum'];
 $email=$_POST['email'];
 
-$sql="update admin set FullName=:fname, PhoneNumber=:phonenum, Email=:email";
+$sql="update admin set FullName=:fname, PhoneNumber=:phonenum, Email=:email where EmployeeID=:uid";
 $query = $dbh->prepare($sql);
+$query->bindParam(':uid',$uid,PDO::PARAM_STR);
 $query->bindParam(':fname',$fname,PDO::PARAM_STR);
 $query->bindParam(':phonenum',$phonenum,PDO::PARAM_STR);
 $query->bindParam(':email',$email,PDO::PARAM_STR);
@@ -62,7 +64,8 @@ echo '<script>alert("Your profile has been updated!")</script>';
                         <div class="panel-body">
                             <form name="signup" method="post">
 <?php
-$sql="SELECT * from admin";
+$uid=$_SESSION['adminid'];
+$sql="SELECT * from admin where EmployeeID=:uid";
 $query = $dbh -> prepare($sql);
 $query-> bindParam(':uid', $uid, PDO::PARAM_STR);
 $query->execute();

@@ -8,7 +8,19 @@ header('location:index.php');
 }
 else{
 
-?>
+	if(isset($_GET['del']))
+	{
+		$sql = "DELETE FROM register
+		WHERE register.eName='" . urldecode($_GET['eName']) . "'
+		AND register.eLocation='" . urldecode($_GET['del']) . "'
+		AND register.startTime='" . urldecode($_GET['startTime']) . "'
+		AND register.endTime='" . urldecode($_GET['endTime']) . "'";
+		$query = $dbh->prepare($sql);
+		$query -> execute();
+
+		$_SESSION['delmsg']="Event canceled scuccessfully!";
+		header('location:user-events.php');
+	} 	?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -50,17 +62,19 @@ else{
                     <th>Start Time</th>
                     <th>End Time</th>
                     <th>Event Name</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
 								<tbody>
 
 <?php
 $uid = $_SESSION['userid'];
-$sql = "SELECT * FROM register WHERE UserID=:uid";
+$sql = "SELECT eLocation,startTime,endTime,eName FROM register WHERE UserID=:uid";
 $query = $dbh -> prepare($sql);
 $query-> bindParam(':uid', $uid, PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
+$cnt=1;
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
@@ -70,9 +84,11 @@ foreach($results as $result)
               <td class="center"><?php echo htmlentities($result->startTime);?></td>
               <td class="center"><?php echo htmlentities($result->endTime);?></td>
               <td class="center"><?php echo htmlentities($result->eName);?></td>
-<?php }} ?>
-
+              <td class="center">
+				  <a href="user-events.php?del=<?php echo htmlentities($result->eLocation);?>&eName=<?php echo htmlentities($result->eName);?>&startTime=<?php echo htmlentities($result->startTime);?>&endTime=<?php echo htmlentities($result->endTime);?>" onclick="return confirm('Do you want to cancel this event?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i>Cancel</button>
+              </td>
                                     </tr>
+                                    <?php $cnt=$cnt + 1;}} ?>
                                 </tbody>
                             </table>
 						</div>

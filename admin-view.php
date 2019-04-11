@@ -10,7 +10,7 @@ else{
 if(isset($_GET['del']))
 {
 $id=$_GET['del'];
-$sql = "delete from collection  WHERE id=:id";
+$sql = "delete from collection WHERE id=:id";
 $query = $dbh->prepare($sql);
 $query -> bindParam(':id',$id, PDO::PARAM_STR);
 $query -> execute();
@@ -103,7 +103,7 @@ header('location:admin-view.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Item Name</th>
+                                            <th>Title</th>
                                             <th>Genre</th>
                                             <th>Author/Producer</th>
                                             <th>Publisher</th>
