@@ -10,17 +10,18 @@ else{
 
 	if(isset($_GET['del']))
 	{
-		$sql = "DELETE FROM register
-		WHERE register.eName='" . urldecode($_GET['eName']) . "'
-		AND register.eLocation='" . urldecode($_GET['del']) . "'
-		AND register.startTime='" . urldecode($_GET['startTime']) . "'
+		$sql2 = "DELETE FROM register WHERE register.UserID='" . $_SESSION['userid'] . "' 
+		AND register.eLocation='" . urldecode($_GET['del']) . "' 
+		AND register.eName='" . urldecode($_GET['eName']) . "' 
+		AND register.startTime='" . urldecode($_GET['startTime']) . "' 
 		AND register.endTime='" . urldecode($_GET['endTime']) . "'";
-		$query = $dbh->prepare($sql);
-		$query -> execute();
+		$query2 = $dbh->prepare($sql2);
+		$query2 -> execute();
 
 		$_SESSION['delmsg']="Event canceled scuccessfully!";
 		header('location:user-events.php');
 	} 	?>
+	
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -48,8 +49,53 @@ else{
             <div class="col-md-12">
                 <h4 class="header-line">My Events</h4>
             </div>
+                 <div class="row">
+    <?php if($_SESSION['error']!="")
+{?>
+	<div class="col-md-6">
+	<div class="alert alert-danger" >
+	<strong>Error :</strong>
+	<?php echo htmlentities($_SESSION['error']);?>
+	<?php echo htmlentities($_SESSION['error']="");?>
+	</div>
+	</div>
+<?php } ?>
+<?php if($_SESSION['msg']!="")
+{?>
+<div class="col-md-6">
+<div class="alert alert-success" >
+ <strong>Success :</strong>
+ <?php echo htmlentities($_SESSION['msg']);?>
+<?php echo htmlentities($_SESSION['msg']="");?>
+</div>
+</div>
+<?php } ?>
+<?php if($_SESSION['updatemsg']!="")
+{?>
+<div class="col-md-6">
+<div class="alert alert-success" >
+ <strong>Success :</strong>
+ <?php echo htmlentities($_SESSION['updatemsg']);?>
+<?php echo htmlentities($_SESSION['updatemsg']="");?>
+</div>
+</div>
+<?php } ?>
+
+<?php if($_SESSION['delmsg']!="")
+    {?>
+<div class="col-md-6">
+<div class="alert alert-success" >
+ <strong>Success :</strong>
+ <?php echo htmlentities($_SESSION['delmsg']);?>
+<?php echo htmlentities($_SESSION['delmsg']="");?>
+</div>
+</div>
+<?php } ?>
+
+</div>
+
         </div>
-        <form role="form" method="post">
+
         <div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
@@ -85,7 +131,7 @@ foreach($results as $result)
               <td class="center"><?php echo htmlentities($result->endTime);?></td>
               <td class="center"><?php echo htmlentities($result->eName);?></td>
               <td class="center">
-				  <a href="user-events.php?del=<?php echo htmlentities($result->eLocation);?>&eName=<?php echo htmlentities($result->eName);?>&startTime=<?php echo htmlentities($result->startTime);?>&endTime=<?php echo htmlentities($result->endTime);?>" onclick="return confirm('Do you want to cancel this event?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i>Cancel</button>
+			  <a href="user-events.php?del=<?php echo htmlentities($result->eLocation);?>&eName=<?php echo htmlentities($result->eName);?>&startTime=<?php echo htmlentities($result->startTime);?>&endTime=<?php echo htmlentities($result->endTime);?>" onclick="return confirm('Do you want to cancel this event?');"><button class="btn btn-danger"><i class="fa fa-pencil"></i>Cancel</button>
               </td>
                                     </tr>
                                     <?php $cnt=$cnt + 1;}} ?>
@@ -97,9 +143,7 @@ foreach($results as $result)
 				</div>
 			</div>
 		</div>
-		</form>
-    </div>
-</div>
+
 </body>
 </html>
 <?php } ?>
