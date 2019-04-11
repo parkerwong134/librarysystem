@@ -20,13 +20,12 @@ CREATE TABLE `users` (
   `FullName` varchar(120) DEFAULT NULL,
   `PhoneNumber` varchar(10) DEFAULT NULL,
   `Email`    varchar(100) NOT NULL,
-  `Birthday` varchar(10) DEFAULT NULL,
   `UserName` varchar(100) DEFAULT NULL,
   `Password` varchar(120) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `users` (`UserID`, `FullName`, `PhoneNumber`, `Email`, `Birthday`, `UserName`, `Password`) VALUES
-(1, 'Zi Ang', '5871234567', 'ziang@gmail.com', '1998-05-13', 'ziang', '4860cc0a2d75bd2e25b45becfb9cc9e8');
+INSERT INTO `users` (`UserID`, `FullName`, `PhoneNumber`, `Email`, `UserName`, `Password`) VALUES
+(1, 'Zi Ang', '5871234567', 'ziang@gmail.com', 'ziang', '4860cc0a2d75bd2e25b45becfb9cc9e8');
 
 CREATE TABLE `authors` (
   `id` int(11) NOT NULL,
