@@ -10,7 +10,7 @@ $fname=$_POST['fullname'];
 $username=$_POST['username'];
 $email=$_POST['email'];
 $phonenum=$_POST['phonenum'];
-$password=$_POST['password'];
+$password=md5($_POST['password']);
 $sql="INSERT INTO users(FullName,UserName,Email,PhoneNumber,Password) VALUES(:fname,:username,:email,:phonenum,:password)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':fname',$fname,PDO::PARAM_STR);
