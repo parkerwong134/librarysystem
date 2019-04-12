@@ -45,6 +45,18 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
 </head>
+<script type="text/javascript">
+function valid()
+{
+if(document.chngpwd.password.value!= document.chngpwd.confirmpassword.value)
+{
+alert("Passwords do not match!");
+document.chngpwd.confirmpassword.focus();
+return false;
+}
+return true;
+}
+</script>
 <body>
 	<style>
 		h4 {
@@ -67,7 +79,7 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
 <div class="col-md-9 col-md-offset-1">
                <div class="panel panel-danger">
                         <div class="panel-body">
-                            <form name="signup" method="post" onSubmit="return valid();">
+                            <form role="form" method="post" onSubmit="return valid();" name="chngpwd">
 <div class="form-group">
 <label>Full Name<span style="color:red">*</span></label>
 <input class="form-control" type="text" name="fullname" autocomplete="off" required />
@@ -98,8 +110,8 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
 <label>Confirm Password<span style="color:red">*</span></label>
 <input class="form-control"  type="password" name="confirmpassword" autocomplete="off" required  />
 </div>
-
 <button type="submit" name="signup" class="btn btn-danger" id="submit">Register Now </button>
+</form>
         </div>
     </div>
 </div>
