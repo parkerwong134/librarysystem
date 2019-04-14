@@ -4,6 +4,7 @@
 # description: create a random data sql file for import large data to mysql.
 
 import random
+from datetime import *
 
 def main():
 	fileout = open("testData.sql", "w")
@@ -15,8 +16,13 @@ def main():
 	authorID = []
 	publisherID = []
 	collectionID = []
+	employeeIDList = []
 	userIDList = []
+	rentList = []
 	lNameList = []
+	addressList = []
+	eventList = []
+	registerList = []
 	
 	genreList = ["Reference", "History", "Science", "Fiction"]
 	itemTypeList = ["Book", "DVD", "Blu-ray", "CD"]
@@ -34,13 +40,20 @@ def main():
 	# create random admin data
 	for i in range(3):
 		
-		employeeID = ""
 		# set random employeeID
-		j = 0
-		for j in range(5):
-			l = random.randint(0, 9)
-			employeeID = employeeID + str(l)
-		employeeID = int(employeeID)
+		u = 0
+		while (u < 1):
+			j = 0
+			employeeID = ""
+			for j in range(5):
+				l = random.randint(0, 9)
+				employeeID = employeeID + str(l)
+			employeeID = int(employeeID)
+			
+			if (employeeID not in employeeIDList):
+				u = u + 1
+				
+		employeeIDList.append(employeeID)
 		
 		# set admin name and username
 		fn = random.randint(0, len(nameList)-1)
@@ -59,26 +72,11 @@ def main():
 		email = username + "@gmail.com"
 		
 		# set birthday
-		y1 = random.randint(6, 9)
-		y2 = random.randint(0, 9)
-		year = "19" + str(y1) + str(y2)
-		
-		m1 = random.randint(0, 1)
-		if (m1 == 0):
-			month = "0" + str(random.randint(1, 9))
-		elif (m1 == 1):
-			month = "1" + str(random.randint(0, 2))
-		
-		d1 = random.randint(0, 3)
-		if (d1 == 0):
-			day = "0" + str(random.randint(1, 9))
-		elif (d1 == 1):
-			day = "1" + str(random.randint(0, 9))
-		elif (d1 == 2):
-			day = "2" + str(random.randint(0, 9))
-		elif (d1 == 3):
-			day = "3" + str(random.randint(0, 1))
-		birthday = year + "-" + month + "-" + day
+		year = random.randint(1960, 1999)
+		month = random.randint(1, 12)
+		day = random.randint(1, 30)
+
+		birthday = date(year, month, day)
 
 		# set password
 		password = username + "pwa"
@@ -91,13 +89,19 @@ def main():
 	# create random user data
 	for i in range(20):
 		
-		userID = ""
 		# set random userID
-		j = 0
-		for j in range(6):
-			l = random.randint(0, 9)
-			userID = userID + str(l)
-		userID = int(userID)
+		u = 0
+		while (u < 1):
+			j = 0
+			userID = ""
+			for j in range(6):
+				l = random.randint(0, 9)
+				userID = userID + str(l)
+			userID = int(userID)
+			
+			if (userID not in userIDList):
+				u = u + 1
+		
 		userIDList.append(userID)
 		
 		# set admin name and username
@@ -117,26 +121,11 @@ def main():
 		email = username + "@gmail.com"
 		
 		# set birthday
-		y1 = random.randint(6, 9)
-		y2 = random.randint(0, 9)
-		year = "19" + str(y1) + str(y2)
-		
-		m1 = random.randint(0, 1)
-		if (m1 == 0):
-			month = "0" + str(random.randint(1, 9))
-		elif (m1 == 1):
-			month = "1" + str(random.randint(0, 2))
-		
-		d1 = random.randint(0, 3)
-		if (d1 == 0):
-			day = "0" + str(random.randint(1, 9))
-		elif (d1 == 1):
-			day = "1" + str(random.randint(0, 9))
-		elif (d1 == 2):
-			day = "2" + str(random.randint(0, 9))
-		elif (d1 == 3):
-			day = "3" + str(random.randint(0, 1))
-		birthday = year + "-" + month + "-" + day
+		year = random.randint(1900, 1999)
+		month = random.randint(1, 12)
+		day = random.randint(1, 30)
+
+		birthday = date(year, month, day)
 
 		# set password
 		password = username + "pw"
@@ -149,12 +138,17 @@ def main():
 	# create random author data
 	for i in range(5):
 		
-		ID = ""
-		# set random ID
-		for j in range(4):
-			l = random.randint(0, 9)
-			ID = ID + str(l)
-		ID = int(ID)
+		u = 0
+		while (u < 1):
+			ID = ""
+			# set random ID
+			for j in range(4):
+				l = random.randint(0, 9)
+				ID = ID + str(l)
+			ID = int(ID)
+			if (ID not in authorID):
+				u = u + 1
+		
 		authorID.append(ID)
 		
 		# set admin name and username
@@ -163,26 +157,11 @@ def main():
 		fullName = nameList[fn] + " " + nameList[ln]
 		
 		# set birthday
-		y1 = random.randint(0, 9)
-		y2 = random.randint(0, 9)
-		year = "19" + str(y1) + str(y2)
-		
-		m1 = random.randint(0, 1)
-		if (m1 == 0):
-			month = "0" + str(random.randint(1, 9))
-		elif (m1 == 1):
-			month = "1" + str(random.randint(0, 2))
-		
-		d1 = random.randint(0, 3)
-		if (d1 == 0):
-			day = "0" + str(random.randint(1, 9))
-		elif (d1 == 1):
-			day = "1" + str(random.randint(0, 9))
-		elif (d1 == 2):
-			day = "2" + str(random.randint(0, 9))
-		elif (d1 == 3):
-			day = "3" + str(random.randint(0, 1))
-		birthday = year + "-" + month + "-" + day
+		year = random.randint(1900, 1999)
+		month = random.randint(1, 12)
+		day = random.randint(1, 30)
+
+		birthday = date(year, month, day)
 		
 		# set status of author
 		s = random.randint(0, 1)
@@ -199,11 +178,16 @@ def main():
 	# set the publisher to insert form
 	for i in range(len(publisherList)):
 		# create id
-		ID = ""
-		for j in range(7):
-			l = random.randint(0, 9)
-			ID = ID + str(l)
-		ID = int(ID)
+		u = 0
+		while (u < 1):
+			ID = ""
+			for j in range(7):
+				l = random.randint(0, 9)
+				ID = ID + str(l)
+			ID = int(ID)
+			if (ID not in publisherID):
+				u = u + 1
+				
 		publisherID.append(ID)
 		
 		print("INSERT INTO `publishers` (`id`, `publishName`) VALUES (%d, '%s');" % (ID, publisherList[i]), file = fileout)
@@ -213,12 +197,17 @@ def main():
 	# create some random collection
 	for i in range(40):
 		
-		ID = ""
-		# set random ID
-		for j in range(8):
-			l = random.randint(0, 9)
-			ID = ID + str(l)
-		ID = int(ID)
+		u = 0
+		while (u < 1):
+			ID = ""
+			# set random ID
+			for j in range(8):
+				l = random.randint(0, 9)
+				ID = ID + str(l)
+			ID = int(ID)
+			if (ID not in collectionID):
+				u = u + 1
+			
 		collectionID.append(ID)
 		
 		# set title
@@ -257,45 +246,39 @@ def main():
 	i = 0
 	for i in range(20):
 		
-		# get collection id
-		c = random.randint(0, len(collectionID)-1)
-		collection = collectionID[c]
+		j = 0
+		while (j < 1):
+			# get collection id
+			c = random.randint(0, len(collectionID)-1)
+			collection = collectionID[c]
 		
-		# get user id
-		u = random.randint(0, len(userIDList)-1)
-		user = userIDList[u]
+			# get user id
+			u = random.randint(0, len(userIDList)-1)
+			user = userIDList[u]
+			
+			if ([collection, user] not in rentList):
+				j = j + 1
+		
+		rentList.append([collection, user])
 		
 		# set rent date (2019-03-01 min, 2019-04-09 max)
-		m1 = random.randint(3, 4)
-		if (m1 == 3):
-			month = "03"
-			d1 = random.randint(0, 3)
-			if (d1 == 0):
-				day = "0" + str(random.randint(1, 9))
-			elif (d1 == 1):
-				day = "1" + str(random.randint(0, 9))
-			elif (d1 == 2):
-				day = "2" + str(random.randint(0, 9))
-			elif (d1 == 3):
-				day = "3" + str(random.randint(0, 1))
-			
-		elif (m1 == 4):
-			month = "04"
-			day = "0" + str(random.randint(1, 9))
+		month = random.randint(3, 4)
+		day = random.randint(1, 30)
 
-		rentDate = "2019-" + month + "-" + day
+		rentDate = date(2019, month, day)
 		
 		# set return date 
-		returnDate = "2019-0" + str(m1 + 1) + "-" + day
+		returnDate = rentDate + timedelta(days=+30)
 		
 		overdue = 0
+		today = date.today()
 		# set overdue days
-		if ((m1 + 1) == 4):
-			if (int(day) <= 9):
-				overdue = 9 - int(day)
-		else:
+		if (today <= returnDate):
 			overdue = 0
+		elif (today > returnDate): 
+			overdue = (today - returnDate).days
 				
+		
 		print("INSERT INTO `rent` (`ISBN`, `CollectionID`, `UserID`, `rentDate`, `returnDate`, `overdue`) VALUES (%d, %d, %d, '%s', '%s', %d);" % (collection, collection, user, rentDate, returnDate, overdue), file = fileout)
 
 		
@@ -303,11 +286,17 @@ def main():
 	i = 0
 	for i in range(10):
 		
-		# create address
-		ave = random.randint(1, 40)
-		district = random.randint(0, 3)
-		
-		address = str(ave) + " Ave, " + districtList[district] + ", Calgary"
+		j = 0
+		while (j < 1):
+			# create address
+			ave = random.randint(1, 40)
+			district = random.randint(0, 3)
+			
+			address = str(ave) + " Ave, " + districtList[district] + ", Calgary"
+			if (ave not in addressList):
+				j = j + 1
+				
+		addressList.append(ave)
 		
 		# create name
 		lName = str(ave) + " Ave Public Library"
@@ -319,55 +308,55 @@ def main():
 	# create random event data
 	i = 0
 	for i in range(10):
+		k = 0
+		while (k < 1): 
+			# get location
+			l = random.randint(0, len(lNameList)-1)
+			location = lNameList[l]
 		
-		# get location
-		l = random.randint(0, len(lNameList)-1)
-		location = lNameList[l]
+			# set start time (min 2019-04-01 09:00:00, max 2019-09-31 17:00:00)
+			month = random.randint(4, 6)
+			day = random.randint(1, 30)
+			hour = random.randint(9, 16)
+			minute = random.randint(0, 59)
+
+			startTime = datetime(2019, month, day, hour, minute, 0)
 		
-		# set start time (min 2019-04-01 09:00:00, max 2019-09-31 17:00:00)
-		month = random.randint(4, 9)
-		d1 = random.randint(0, 3)
-		if (d1 == 0):
-			day = "0" + str(random.randint(1, 9))
-		elif (d1 == 1):
-			day = "1" + str(random.randint(0, 9))
-		elif (d1 == 2):
-			day = "2" + str(random.randint(0, 9))
-		elif (d1 == 3):
-			day = "3" + str(random.randint(0, 1))
-				
-		h = random.randint(0, 10)
-		if (h < 2):
-			hour = "0" + "9"
-		else:
-			hour = "1" + str(random.randint(2, 7))
-		startTime = "2019-0" + str(month) + "-" + day + " " + hour + ":00:00"
-		
-		# set end time
-		hourInt = int(hour) + 1
-		if (hourInt <= 9):
-			hour = "0" + hourInt
-		elif (hourInt > 9):
-			hour = str(hourInt)
-		endTime = "2019-0" + str(month) + "-" + day + " " + hour + ":00:00"
-		
-		# set event name
-		n = random.randint(0, 1)
-		if (n == 0):
-			eName = titleList[random.randint(0, len(titleList)-1)] + " EVENT"
-		elif (n == 1):
-			eName = nounList[random.randint(0, len(nounList)-1)] + " EVENT"
+			# set end time
+			h = random.randint(0, 2)
+			m = random.randint(0, 59)
 			
-		# set description
-		description = "This is test event " + str(i)
+			endTime = startTime + timedelta(hours=+h, minutes=+m)
+		
+			# set event name
+			n = random.randint(0, 1)
+			if (n == 0):
+				eName = titleList[random.randint(0, len(titleList)-1)] + " EVENT"
+			elif (n == 1):
+				eName = nounList[random.randint(0, len(nounList)-1)] + " EVENT"
+			
+			# set description
+			description = "This is test event " + str(i)
+			
+			if ([location, startTime, endTime, eName] not in eventList): 
+				k = k + 1
+				
+		# add to list
+		eventList.append([location, startTime, endTime, eName])
 		
 		print("INSERT INTO `event` (`eLocation`, `startTime`, `endTime`, `eName`, `description`) VALUES ('%s', '%s', '%s', '%s', '%s');" % (location, startTime, endTime, eName, description), file = fileout)
-		
 		
 		# create some random register
 		j = 0
 		for j in range(random.randint(0, 10)):
-			ID = userIDList[random.randint(0, len(userIDList)-1)]
+			l = 0
+			while (l < 1):
+				 ID = userIDList[random.randint(0, len(userIDList)-1)]
+				 if ([ID, location, startTime, endTime, eName] not in registerList):
+					 l = l + 1
+					 
+			registerList.append([ID, location, startTime, endTime, eName])
+	
 			print("INSERT INTO `register` (`UserID`, `eLocation`, `startTime`, `endTime`, `eName`) VALUES (%d, '%s', '%s', '%s', '%s');" % (ID, location, startTime, endTime, eName), file = fileout)
 		
 	

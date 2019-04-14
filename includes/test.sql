@@ -64,9 +64,9 @@ CREATE TABLE `collection` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `collection` (`id`, `Title`, `GenreID`, `AuthorID`, `PublishID`, `ISBN`, `Price`, `itemType`) VALUES
-(1, 'php for dummies like me', 1, 1, 1, 222333, 20, 'Book'),
-(3, 'sql for dummies like me', 1, 2, 1, 1111, 15, 'Book'),
-(5, 'The adventures of SQLman', 4, 3, 2, 241, 50, 'DVD');
+(222333, 'php for dummies like me', 1, 1, 1, 222333, 20, 'Book'),
+(1111, 'sql for dummies like me', 1, 2, 1, 1111, 15, 'Book'),
+(241, 'The adventures of SQLman', 4, 3, 2, 241, 50, 'DVD');
 
 CREATE TABLE `genre` (
   `id` int(11) NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE `rent` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `rent` (`ISBN`, `CollectionID`, `UserID`, `rentDate`, `returnDate`, `overdue`) VALUES
-(222333, 1, 1, '2019-03-09', '2019-04-02', 9);
+(222333, 222333, 1, '2019-03-09', '2019-04-02', 9);
 
 CREATE TABLE `library` (
   `address` varchar(255) NOT NULL,
