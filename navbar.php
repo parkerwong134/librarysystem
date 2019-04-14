@@ -1,3 +1,5 @@
+<!-- Default navigation bar for the login pages and registration -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

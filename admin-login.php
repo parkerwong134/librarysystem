@@ -19,10 +19,10 @@ if($query->rowCount() > 0)
 {
 	foreach($results as $result){
 		$_SESSION['adminid']=$result->EmployeeID;
-		
+
 $_SESSION['alogin']=$_POST['username'];
-echo "<script type='text/javascript'> document.location ='admin-view.php'; </script>";
-} 
+echo "<script type='text/javascript'> document.location ='admin/admin-view.php'; </script>";
+}
 }else{
 echo "<script>alert('Invalid Details');</script>";
 }

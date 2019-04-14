@@ -1,3 +1,5 @@
+-- Please import this file into phpMyAdmin in case the Python file does not work.
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -20,7 +22,7 @@ CREATE TABLE `users` (
   `FullName` varchar(120) DEFAULT NULL,
   `PhoneNumber` varchar(10) DEFAULT NULL,
   `Email`    varchar(100) NOT NULL,
-  `Birthday` DATE DEFAULT NULL, 
+  `Birthday` DATE DEFAULT NULL,
   `UserName` varchar(100) DEFAULT NULL,
   `Password` varchar(120) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

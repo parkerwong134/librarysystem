@@ -23,7 +23,7 @@ if($query->rowCount() > 0)
 	$_SESSION['userid']=$result->UserID;
 
 $_SESSION['login']=$_POST['username'];
-echo "<script type='text/javascript'> document.location ='user-items.php'; </script>";
+echo "<script type='text/javascript'> document.location ='users/user-items.php'; </script>";
 }
 }
 else{

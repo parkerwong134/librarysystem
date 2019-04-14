@@ -1,3 +1,5 @@
+<!-- Home page for the website -->
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -48,10 +50,5 @@
 	<a href="user-login.php"><button class="button">User</button></a>
 	<a href="admin-login.php"><button class="button">Admin</button></a>
 	</div>
-
-
 </body>
-
-
-
 </html>
